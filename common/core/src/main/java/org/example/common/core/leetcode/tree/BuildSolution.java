@@ -3,7 +3,9 @@ package org.example.common.core.leetcode.tree;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -128,4 +130,78 @@ public class BuildSolution {
         log.info("{}", treeNode);
     }
 
+    /** 构建后序、前序、中序的输出序列
+     * <p>
+     *     前序：中左右
+     *     中序：左中右
+     *     后序：左右中
+     * </p>
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderList(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        final List<Integer> res = new ArrayList<>();
+        final List<Integer> leftList = inorderList(root.left);
+        final List<Integer> rightList = inorderList(root.right);
+        res.addAll(leftList);
+        res.add(root.val);
+        res.addAll(rightList);
+        return res;
+    }
+
+    @Test
+    public void mainIn() {
+        final TreeNode treeNode = buildTree(new Integer[]{1, 2, 3, 4, 5, 6});
+        System.out.println(inorderList(treeNode).toString());
+    }
+
+
+    public List<Integer> preOrderList(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        final List<Integer> res = new ArrayList<>();
+
+        return res;
+    }
+
+    public List<Integer> postOrderList(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        final List<Integer> res = new ArrayList<>();
+
+        return res;
+    }
+
+    /**
+     * 对arr进行构建树
+     *
+     * @param arr
+     * @return
+     */
+    public TreeNode buildTree(Integer[] arr) {
+        if (arr == null || arr.length == 0 || arr[0] == null) {
+            return null;
+        }
+
+        return buildTreeHelper(arr, 0);
+    }
+
+    private TreeNode buildTreeHelper(Integer[] arr, int index) {
+        if (index >= arr.length || arr[index] == null) {
+            return null;
+        }
+
+        TreeNode root = new TreeNode(arr[index]);
+
+        root.left = buildTreeHelper(arr, 2 * index + 1);
+        root.right = buildTreeHelper(arr, 2 * index + 2);
+
+        return root;
+    }
 }

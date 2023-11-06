@@ -1,6 +1,7 @@
 package org.example.common.core.leetcode.daily;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.common.core.util.CommonUtil;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -106,7 +107,7 @@ public class Leet1104 {
                     dp[i][j] = dp[i+1][j-1] + 2;
                 } else {
                     dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1]);
-                    formatAndDisplayArray(dp);
+                    CommonUtil.formatAndDisplayArray(dp);
                     log.info("=======");
 //                    log.info("",);
                 }
@@ -124,15 +125,5 @@ public class Leet1104 {
 //        System.out.println(longestPalindromeSubseq(s1));
     }
 
-    public static void formatAndDisplayArray(int[][] array) {
-        int numRows = array.length;
-        int numCols = array[0].length;
 
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                System.out.printf("%4d", array[i][j]); // Adjust the width as needed
-            }
-            System.out.println(); // Move to the next row
-        }
-    }
 }

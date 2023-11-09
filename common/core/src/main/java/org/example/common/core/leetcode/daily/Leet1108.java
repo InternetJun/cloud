@@ -121,18 +121,14 @@ public class Leet1108 {
                i++;
                c = s.charAt(i);
            }
-           i--;
-           while (countZero > 0 && c == '1') {
+           while (i < s.length() && countZero > 0 && s.charAt(i) == '1') {
                if (countOne == 0) {
                    indexOne++;
                }
                log.info("坐标1：{}；", i);
                countOne++;
                i++;
-               c = s.charAt(i);
            }
-           i--;
-           i++;
        }
 
         return maxLen;

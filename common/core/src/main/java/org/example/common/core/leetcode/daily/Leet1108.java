@@ -136,13 +136,14 @@ public class Leet1108 {
 
     @Test
     public void testBalance() {
-        String s = "01000111";
-        System.out.println(findTheLongestBalancedSubstringSolution(s));
+        String s = "100011";
+        System.out.println(findTheLongestBalancedSubstringA(s));
     }
 
     public int findTheLongestBalancedSubstringA(String s) {
         int n = s.length(), idx = 0, ans = 0;
         while (idx < n) {
+            // 因为是有每一轮都进行了初始化的。ab同时进行。
             int a = 0, b = 0;
             while (idx < n && s.charAt(idx) == '0' && ++a >= 0) {
                 idx++;
@@ -150,6 +151,7 @@ public class Leet1108 {
             while (idx < n && s.charAt(idx) == '1' && ++b >= 0) {
                 idx++;
             }
+            log.info("a:{},b:{}", a,b);
             ans = Math.max(ans, Math.min(a, b) * 2);
         }
         return ans;

@@ -188,10 +188,10 @@ public class Leet1103 {
             right++;
             if (count <= 2) {
                 // 记录所有的结果。只要符合要求的都需要。
-                if (right == len -1) {
+                if (right == len - 1) {
                     log.info("left:{},right:{}", left, right);
                 }
-                if (right == len -2) {
+                if (right == len - 2) {
                     log.info("left:{},right:{}, str:{}", left, right, s.substring(left, right));
                     maxLength = Math.max(maxLength, right - left);
                     log.info("a0a1b2c3c4c5d6最大的长度{}", maxLength);
@@ -216,7 +216,7 @@ public class Leet1103 {
         // 记录下左右指针获取到字串？
         final ArrayList<int[]> ints = memory.get(maxLength);
         for (int[] anInt : ints) {
-            String rs = s.substring(anInt[0], anInt[1]+1);
+            String rs = s.substring(anInt[0], anInt[1] + 1);
             log.info("{}", rs);
         }
         return maxLength;
@@ -269,6 +269,38 @@ public class Leet1103 {
         }
 
         return result;
+    }
+
+    public List<String> findTwoChar(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int len = s.length();
+        final ArrayList<String> list = new ArrayList<>();
+        int left = 0, right = 0, maxLen = Integer.MIN_VALUE;
+        while (right < len) {
+            char c = s.charAt(right);
+            map.put(c, map.getOrDefault(c, 0) + 1);
+            right++;
+            while (map.size() > 2) {
+                char d = s.charAt(left);
+                map.put(d, map.get(d) - 1);
+                if (map.get(d) == 0) {
+                    map.remove(d);
+                }
+                left++;
+            }
+            // 更新list列表，有maxLength和
+            if (map.size() <= 2) {
+                // 长度的计算是right - left + 1
+                if (right - left > maxLen) {
+                    list.clear();
+                    list.add(s.substring(left, right + 1));
+                    maxLen = right - left;
+                } else if (right - left == maxLen) {
+                    list.add(s.substring(left, right + 1));
+                }
+            }
+        }
+        return list;
     }
 
 }

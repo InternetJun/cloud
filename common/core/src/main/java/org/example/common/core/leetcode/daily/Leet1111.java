@@ -1,10 +1,12 @@
 package org.example.common.core.leetcode.daily;
 
+import cn.hutool.core.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 
 /**
  * @Author: lejun
@@ -25,9 +27,9 @@ public class Leet1111 {
      */
     public int minSWapCouple(int[] row) {
         final ArrayList<Integer[]> list = new ArrayList<>();
-        for (int i = 0; i < row.length; i=i+2) {
-            if (Math.abs(row[i]-row[i+1]) != 1) {
-                Integer[] tmp = new Integer[]{row[i], row[i+1]};
+        for (int i = 0; i < row.length; i = i + 2) {
+            if (Math.abs(row[i] - row[i + 1]) != 1) {
+                Integer[] tmp = new Integer[]{row[i], row[i + 1]};
                 list.add(tmp);
             }
         }
@@ -39,23 +41,26 @@ public class Leet1111 {
     }
 
     int[] p = new int[70];
+
     void union(int a, int b) {
         log.info("要把b的元素值付给a.赋值的值a:{},b:{}", find(a), find(b));
         p[find(a)] = p[find(b)];
     }
+
     int find(int x) {
         if (p[x] != x) {
             p[x] = find(p[x]);
         }
         return p[x];
     }
+
     // 为什么想要用并查级呢？因为都有一样的祖先的
     public int minSwapsCouples(int[] row) {
         int n = row.length, m = n / 2;
         for (int i = 0; i < m; i++) {
             p[i] = i;
         }
-        log.info("p元素{}，长度为：{}", p,p.length);
+        log.info("p元素{}，长度为：{}", p, p.length);
         for (int i = 0; i < n; i += 2) {
             log.info("==要计算的值是：a:{};b:{}", row[i] / 2, row[i + 1] / 2);
             union(row[i] / 2, row[i + 1] / 2);
@@ -63,7 +68,7 @@ public class Leet1111 {
         log.info("{}", p);
         int cnt = 0;
         for (int i = 0; i < m; i++) {
-            log.info("find的值为：{}; i的值为多少：{}",find(i), i);
+            log.info("find的值为：{}; i的值为多少：{}", find(i), i);
             if (i == find(i)) {
                 cnt++;
             }
@@ -72,8 +77,8 @@ public class Leet1111 {
     }
 
     @Test
-    public  void main(){
-        int[] nums = {0,1,2,4,3,6,5,7};
+    public void main() {
+        int[] nums = {0, 1, 2, 4, 3, 6, 5, 7};
         System.out.println(minSwapsCouples(nums));
     }
 
@@ -82,7 +87,7 @@ public class Leet1111 {
         int N = len / 2;
         UnionFind unionFind = new UnionFind(N);
         for (int i = 0; i < len; i += 2) {
-            log.info("{}；；；；{}",row[i] / 2, row[i + 1] / 2);
+            log.info("{}；；；；{}", row[i] / 2, row[i + 1] / 2);
             unionFind.union(row[i] / 2, row[i + 1] / 2);
         }
         log.info("{}", unionFind.parent);
@@ -118,7 +123,7 @@ public class Leet1111 {
         public void union(int x, int y) {
             int rootX = find(x);
             int rootY = find(y);
-            log.info("{}：{}；{}:{}", x,y,rootX, rootY);
+            log.info("{}：{}；{}:{}", x, y, rootX, rootY);
             if (rootX == rootY) {
                 return;
             }
@@ -126,5 +131,37 @@ public class Leet1111 {
             parent[rootX] = rootY;
             count--;
         }
+    }
+
+    public char firstAppearAndFreChar(String s) {
+        if (ObjectUtil.isEmpty(s)) {
+            return ' ';
+        }
+        int len = s.length();
+        final HashMap<Character, Integer> frequent = new HashMap<>();
+        char mostFrequentChar = 0;
+        int maxFrequency = 0;
+        int firstAppear = Integer.MAX_VALUE;
+        for (int i = 0; i < len; i++) {
+            char c = s.charAt(i);
+            frequent.put(c, frequent.getOrDefault(c, 0) + 1);
+            log.info("{}", frequent);
+            log.info("最大值{}", maxFrequency);
+            // 情况下要有一个更新
+            if (frequent.get(c) > maxFrequency ||
+                    (frequent.get(c) == maxFrequency && i < firstAppear)) {
+                maxFrequency = frequent.get(c);
+                mostFrequentChar = c;
+                firstAppear = i;
+                log.info("最开始字符:{}的位置{}", c, firstAppear);
+            }
+        }
+        return mostFrequentChar;
+    }
+
+    @Test
+    public void testMost() {
+        String s = "bbca";
+        System.out.println(firstAppearAndFreChar(s));
     }
 }

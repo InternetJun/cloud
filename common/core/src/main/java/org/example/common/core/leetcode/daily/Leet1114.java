@@ -3,6 +3,8 @@ package org.example.common.core.leetcode.daily;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 /**
  * @Author: lejun
  * @project: cloud
@@ -20,8 +22,48 @@ public class Leet1114 {
      * @return
      */
     public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        int[] ans = {Integer.MAX_VALUE / 2, -1};
+        int[][] mp = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(mp[i], Integer.MAX_VALUE / 2);
+        }
+        for (int[] edge : edges) {
+            int from = edge[0], to = edge[1], weight = edge[2];
+            // 初始化
+            mp[from][to] = mp[to][from] = weight;
+        }
+        for (int k = 0; k < n; k++) {
+            // 自己到自己的距离为0，其他的需一个计算处理。
+            mp[k][k] = 0;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    // 核心算法代码行
+                    mp[i][j] = Math.min(mp[i][j], mp[i][k] + mp[k][j]);
+                }
+            }
+        }
+        for (int i = 0; i < n; ++i) {
+            int cnt = 0;
+            for (int j = 0; j < n; ++j) {
+                if (mp[i][j] <= distanceThreshold) {
+                    cnt++;
+                }
+            }
+            log.info("{}", cnt);
+            if (cnt <= ans[0]) {
+                ans[0] = cnt;
+                ans[1] = i;
+                log.info("ans:{}",ans[1]);
+            }
+        }
+        return ans[1];
+    }
 
-        return 0;
+    @Test
+    public void testFloy() {
+        int n = 4, distanceThreshold = 4;
+        int[][] edges = {{0, 1, 3}, {1, 2, 1}, {1, 3, 4}, {2, 3, 1}};
+        System.out.println(findTheCity(n, edges, distanceThreshold));
     }
 
     public void dirsExercise() {
@@ -34,7 +76,7 @@ public class Leet1114 {
     }
 
     @Test
-    public void main(){
+    public void main() {
         dirsExercise();
     }
 }

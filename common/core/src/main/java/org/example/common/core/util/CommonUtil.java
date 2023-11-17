@@ -1,5 +1,7 @@
 package org.example.common.core.util;
 
+import java.util.List;
+
 /**
  * @Author: lejun
  * @project: cloud
@@ -18,4 +20,15 @@ public class CommonUtil {
             System.out.println(); // Move to the next row
         }
     }
+
+    public static void formatAndDisplayArray(List<int[]> matrix) {
+        for (int[] row : matrix) {
+            for (int element : row) {
+                System.out.print(element + " ");
+            }
+            System.out.println(); // 换行表示矩阵的下一行
+        }
+    }
+
+
 }

@@ -1,0 +1,11 @@
+spring.cloud.gateway.session:
+  lockTime: 10
+
+  maxSession: 60
+spring:
+  web:
+    proxy:
+      url:
+  static:
+    antpatterns:
+

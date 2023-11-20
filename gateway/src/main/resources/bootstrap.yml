@@ -24,3 +24,6 @@ spring:
 server:
   port: 9999
 ## 路由规则
+
+## login properity
+login:

@@ -1,5 +1,6 @@
 package org.example.web.filter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.*;
@@ -15,6 +16,7 @@ import java.util.Enumeration;
  */
 @WebFilter(urlPatterns = "/*",filterName = "sqlFilter")
 @Configuration
+@Slf4j
 public class SqlFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {}
@@ -40,6 +42,7 @@ public class SqlFilter implements Filter {
         }
         if (sqlValidate(sql)) {
             //TODO 这里直接抛异常处理，前后端交互项目中，请把错误信息按前后端"数据返回的VO"对象进行封装
+            log.warn("捕获到异常的sql语句:{}", sql);
             throw new IOException("您发送请求中的参数中含有非法字符");
         } else {
             filterChain.doFilter(request,response);

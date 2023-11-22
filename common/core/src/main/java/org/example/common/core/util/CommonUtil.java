@@ -1,5 +1,9 @@
 package org.example.common.core.util;
 
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,5 +34,51 @@ public class CommonUtil {
         }
     }
 
+    public static <T> T convertToArray(String input, Class<T> clazz) {
+        List<List<Integer>> tempList = new ArrayList<>();
+        List<Integer> currentList = new ArrayList<>();
+        StringBuilder numBuilder = new StringBuilder();
+        boolean is2D = input.contains("[[");
 
+        for (char c : input.toCharArray()) {
+            if (Character.isDigit(c)) {
+                numBuilder.append(c);
+            } else if (c == ',') {
+                // Separator between elements
+                if (numBuilder.length() > 0) {
+                    currentList.add(Integer.parseInt(numBuilder.toString()));
+                    numBuilder.setLength(0);
+                }
+            } else if (c == '[') {
+                // Start a new array
+                currentList = new ArrayList<>();
+            } else if (c == ']') {
+                // End of the current array, add it to the result
+                if (numBuilder.length() > 0) {
+                    currentList.add(Integer.parseInt(numBuilder.toString()));
+                    numBuilder.setLength(0);
+                }
+                tempList.add(new ArrayList<>(currentList));
+            }
+        }
+
+        // Convert the list of lists to an array
+        if (is2D) {
+            int[][] resultArray = new int[tempList.size()][];
+            for (int i = 0; i < tempList.size(); i++) {
+                List<Integer> list = tempList.get(i);
+                resultArray[i] = new int[list.size()];
+                for (int j = 0; j < list.size(); j++) {
+                    resultArray[i][j] = list.get(j);
+                }
+            }
+            return clazz.cast(resultArray);
+        } else {
+            int[] resultArray = new int[tempList.get(0).size()];
+            for (int i = 0; i < tempList.get(0).size(); i++) {
+                resultArray[i] = tempList.get(0).get(i);
+            }
+            return clazz.cast(resultArray);
+        }
+    }
 }

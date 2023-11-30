@@ -1,7 +1,6 @@
 package org.example.web.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import lombok.Setter;
 import org.example.web.pojo.PermissionInfo;
 import org.example.web.service.IPermission;
 import org.springframework.stereotype.Service;

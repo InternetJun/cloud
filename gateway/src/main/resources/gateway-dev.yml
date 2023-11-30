@@ -1,11 +1,7 @@
-spring.cloud.gateway.session:
-  lockTime: 10
-
-  maxSession: 60
-spring:
-  web:
-    proxy:
-      url:
-  static:
-    antpatterns:
-
+server:
+  port: 9999
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/actuator/**"
+      - "/auth/oauth/token"

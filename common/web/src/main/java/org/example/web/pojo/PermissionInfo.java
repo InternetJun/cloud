@@ -1,12 +1,5 @@
 package org.example.web.pojo;
 
-/**
- * @Author: lejun
- * @project: cloud
- * @description:
- * @time: 2023/11/20 15:17
- */
-
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -14,12 +7,22 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.management.relation.RoleInfo;
 import java.util.List;
 
+/**
+ * @Author: lejun
+ * @project: cloud
+ * @description:
+ * @time: 2023/11/20 15:17
+ */
 @TableName("gateway_permission")
 @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+@Getter
+@Setter
 public class PermissionInfo {
     private static final long serialVersionUID = 874671003093440548L;
 

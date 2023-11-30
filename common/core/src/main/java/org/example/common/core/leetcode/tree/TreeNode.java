@@ -7,7 +7,7 @@ package org.example.common.core.leetcode.tree;
  * @time: 2023/8/22 16:06
  */
 public class TreeNode {
-    public int val;
+    public Integer val;
     public TreeNode left;
     public TreeNode right;
 
@@ -27,9 +27,10 @@ public class TreeNode {
     @Override
     public String toString() {
         return "TreeNode{" +
-                "val=" + val +
-                ", left=" + left +
-                ", right=" + right +
+                "val=" + val
+                +
+//                ", left=" + left +
+//                ", right=" + right +
                 '}';
     }
 }

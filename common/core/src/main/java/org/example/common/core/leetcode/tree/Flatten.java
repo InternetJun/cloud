@@ -2,6 +2,7 @@ package org.example.common.core.leetcode.tree;
 
 import cn.hutool.core.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.example.common.core.util.CommonUtil;
 import org.junit.Test;
 
 import java.util.*;
@@ -31,22 +32,54 @@ public class Flatten {
      * @param q
      * @return
      */
+//    @Deprecated
+//    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+//        if (root == null || p == root || q == root) {
+//            return root;
+//        }
+//        TreeNode left = lowestCommonAncestor(root.left, p, q);
+//        TreeNode right = lowestCommonAncestor(root.right, p, q);
+//        if (left == null && right == null) {
+//            return null;
+//        }
+//        if (left == null) {
+//            return right;
+//        }
+//        if (right == null) {
+//            return left;
+//        }
+//        return root;
+//    }
+
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null || p == root || q == root) {
+        // base case
+        if (root == null) {
+            return null;
+        }
+        if (root == p || root == q) {
             return root;
         }
+
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
+        // 情况 1
+        if (left != null && right != null) {
+            return root;
+        }
+        // 情况 2
         if (left == null && right == null) {
             return null;
         }
-        if (left == null) {
-            return right;
-        }
-        if (right == null) {
-            return left;
-        }
-        return root;
+        // 情况 3
+        return left == null ? right : left;
+    }
+
+    @Test
+    public void testAncestor() {
+        final TreeNode treeNode = buildTree(new Integer[]{3, 5, 1, 6, 2, 0, 8, null, null, 7, 4});
+        CommonUtil.printTree(treeNode);
+        final TreeNode treeNode1 = lowestCommonAncestor(treeNode, new TreeNode(5), new TreeNode(1));
+        log.info("{}", treeNode1);
     }
 
     /**

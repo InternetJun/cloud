@@ -1,6 +1,8 @@
 package org.example.common.core.httpEntity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -11,13 +13,15 @@ import java.io.Serializable;
 * @time: 2023/1/1 21:23
 */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Result<T> implements Serializable {
 
     private String code;
 
-    private T data;
-
     private String msg;
+
+    private T data;
 
     public static <T> Result<T> success() {
         return success(null);
@@ -29,6 +33,10 @@ public class Result<T> implements Serializable {
         result.setMsg(ResultCode.SUCCESS.getMsg());
         result.setData(data);
         return result;
+    }
+
+    public static <T> Result unauthorizd(T data) {
+        return new Result(ResultCode.ACCESS_UNAUTHORIZED.getCode(), ResultCode.ACCESS_UNAUTHORIZED.getMsg(), data);
     }
 
     public static <T> Result<T> failed() {
@@ -69,5 +77,9 @@ public class Result<T> implements Serializable {
 
     public static boolean isSuccess(Result<?> result) {
         return result != null && ResultCode.SUCCESS.getCode().equals(result.getCode());
+    }
+
+    public static <T> Result<T> forbidden(T data) {
+        return new Result<T>(ResultCode.TOKEN_ACCESS_FORBIDDEN.getCode(), ResultCode.TOKEN_ACCESS_FORBIDDEN.getMsg(), data);
     }
 }

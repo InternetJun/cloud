@@ -5,21 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad8e8bd9-6123-4cf1-803e-ee38b6d489e6" name="Changes" comment="will not commit">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/design/observer/ConcretObserver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/design/observer/ConcretSubject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/design/observer/Observer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/design/observer/ObserverPatternExample.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/design/observer/Subject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/leetcode/daily/Leet1110.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/leetcode/daily/Leet1114.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/leetcode/daily/RangeModule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/web/src/main/java/org/example/web/socket/nettyTest/WheelTimeTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/resources/auth-dev.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stock/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/leetcode/daily/Leet1103.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/leetcode/daily/Leet1103.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/leetcode/daily/Leet1108.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/leetcode/daily/Leet1108.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/leetcode/daily/Leet1109.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/leetcode/daily/Leet1109.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/leetcode/daily/Leet1111.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/leetcode/daily/Leet1111.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/example/auth/AuthApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/example/auth/AuthApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/example/auth/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/example/auth/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/main/resources/bootstrap-dev.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/web/src/main/java/org/example/web/mapper/ClientMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/web/src/main/java/org/example/web/mapper/ClientMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/web/src/main/java/org/example/web/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/web/src/main/java/org/example/web/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/example/gate/config/ResourceServerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/example/gate/config/ResourceServerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/stock/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock/src/main/java/com/example/stock/StockApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock/src/main/java/com/example/stock/StockApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock/src/main/java/com/example/stock/basic/CompleteFutureTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/stock/src/main/java/com/example/stock/basic/CompleteFutureTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock/src/main/resources/bootstrap.yml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +42,13 @@
         <option value="leejun" />
       </list>
     </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="socket" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -52,10 +59,13 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/concurrent/locks/LockSupport.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/cn/hutool/hutool-all/5.7.22/hutool-all-5.7.22.jar!/cn/hutool/core/util/NumberUtil.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/concurrent/ExecutionException.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/lang/StringBuffer.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/zip/DeflaterOutputStream.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/lang/Thread.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/concurrent/locks/AbstractQueuedSynchronizer.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/cn/hutool/hutool-all/5.7.22/hutool-all-5.7.22.jar!/cn/hutool/system/UserInfo.class" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/zip/ZipOutputStream.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/concurrent/locks/ReentrantLock.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/cn/hutool/hutool-all/5.7.22/hutool-all-5.7.22.jar!/cn/hutool/core/compress/ZipWriter.class" root0="SKIP_INSPECTION" />
@@ -68,6 +78,8 @@
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/concurrent/Executor.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/lang/Runnable.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/ArrayList.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.4.3/mybatis-plus-extension-3.4.3.jar!/com/baomidou/mybatisplus/extension/spring/MybatisSqlSessionFactoryBean.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/javax/management/relation/RoleInfo.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/Arrays.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/lang/IllegalArgumentException.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/math/BigDecimal.java" root0="SKIP_INSPECTION" />
@@ -75,18 +87,19 @@
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/security/Principal.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/Formatter.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/nio/channels/spi/SelectorProvider.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.3.3.RELEASE/spring-data-redis-2.3.3.RELEASE.jar!/org/springframework/data/redis/core/ReactiveStringRedisTemplate.class" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/concurrent/ThreadPoolExecutor.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar!/lombok/val.class" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/List.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/lang/String.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/junit/junit/4.13.2/junit-4.13.2.jar!/org/junit/runner/Description.class" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/Comparator.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/net/URL.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.13/spring-core-5.3.13.jar!/org/springframework/core/io/Resource.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/concurrent/locks/LockSupport.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/PriorityQueue.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/cn/hutool/hutool-all/5.7.22/hutool-all-5.7.22.jar!/cn/hutool/core/util/ZipUtil.class" root0="SKIP_INSPECTION" />
-    <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/util/concurrent/ExecutionException.java" root0="SKIP_INSPECTION" />
-    <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/lang/StringBuffer.java" root0="SKIP_INSPECTION" />
-    <setting file="jar://$PROJECT_DIR$/../../../../jdk/src.zip!/java/lang/Thread.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectId" id="2XiSOhbP6rltgMcRb9WuZaNuG9d" />
   <component name="ProjectViewState">
@@ -105,29 +118,40 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/stock/src/main/resources" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Java\project\security\mircro\cloud\stock\src\main\resources" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.example.common.core.leetcode.daily" />
       <recent name="org.example.web.socket.nettyTest" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Leet1114.main">
-    <configuration name="Leet1029.main" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="core" />
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.SecurityConfig">
+    <configuration name="SecurityConfig" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.auth.config.SecurityConfig" />
+      <module name="auth" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.common.core.leetcode.daily.*" />
+          <option name="PATTERN" value="com.example.auth.config.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.example.common.core.leetcode.daily" />
-      <option name="MAIN_CLASS_NAME" value="org.example.common.core.leetcode.daily.Leet1029" />
-      <option name="METHOD_NAME" value="main" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -143,38 +167,6 @@
       <option name="PACKAGE_NAME" value="org.example.common.core.leetcode.daily" />
       <option name="MAIN_CLASS_NAME" value="org.example.common.core.leetcode.daily.Leet1103" />
       <option name="METHOD_NAME" value="testTwo" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Leet1111.main" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="core" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.common.core.leetcode.daily.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example.common.core.leetcode.daily" />
-      <option name="MAIN_CLASS_NAME" value="org.example.common.core.leetcode.daily.Leet1111" />
-      <option name="METHOD_NAME" value="main" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Leet1111.testMost" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="core" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.common.core.leetcode.daily.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example.common.core.leetcode.daily" />
-      <option name="MAIN_CLASS_NAME" value="org.example.common.core.leetcode.daily.Leet1111" />
-      <option name="METHOD_NAME" value="testMost" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -196,13 +188,54 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AuthApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="auth" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.auth.AuthApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GateWayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="gateway" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.gate.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.gate.GateWayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StockApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="stock" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.stock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.stock.StockApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.Leet1103.testTwo" />
+      <item itemvalue="JUnit.Leet1114.main" />
+      <item itemvalue="Spring Boot.GateWayApplication" />
+      <item itemvalue="Spring Boot.AuthApplication" />
+      <item itemvalue="Spring Boot.StockApplication" />
+      <item itemvalue="Application.SecurityConfig" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SecurityConfig" />
+        <item itemvalue="Spring Boot.GateWayApplication" />
+        <item itemvalue="Spring Boot.StockApplication" />
         <item itemvalue="JUnit.Leet1114.main" />
-        <item itemvalue="JUnit.Leet1029.main" />
         <item itemvalue="JUnit.Leet1103.testTwo" />
-        <item itemvalue="JUnit.Leet1111.testMost" />
-        <item itemvalue="JUnit.Leet1111.main" />
       </list>
     </recent_temporary>
   </component>
@@ -232,6 +265,7 @@
       <workItem from="1699842729088" duration="1877000" />
       <workItem from="1699855655343" duration="3689000" />
       <workItem from="1699928205564" duration="3244000" />
+      <workItem from="1701410606965" duration="7357000" />
     </task>
     <task id="LOCAL-00001" summary="回文字符串的相关题目">
       <created>1699162230151</created>
@@ -331,7 +365,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699858966168</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="12.01计划">
+      <created>1701402564050</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1701402564050</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -343,6 +384,31 @@
         <entry key="MAIN">
           <value>
             <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="security" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="socket" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/socket" />
+                </option>
+              </RecentGroup>
+            </list>
           </value>
         </entry>
       </map>
@@ -361,7 +427,8 @@
     <MESSAGE value="无用的提交" />
     <MESSAGE value="并查集的算法。关键是一个源头是公共的(在同一个环内)" />
     <MESSAGE value="噩梦的开始，接雨水思路" />
-    <option name="LAST_COMMIT_MESSAGE" value="噩梦的开始，接雨水思路" />
+    <MESSAGE value="12.01计划" />
+    <option name="LAST_COMMIT_MESSAGE" value="12.01计划" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -389,7 +456,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/common/core/src/main/java/org/example/common/core/leetcode/daily/Leet1109.java</url>
           <line>65</line>
-          <properties class="org.example.common.core.leetcode.daily.Leet1109" method="main">
+          <properties class="org.example.common.core.leetcode.daily.Leet1109">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="13" />

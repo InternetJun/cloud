@@ -1,7 +1,10 @@
 server:
   port: 8081
-
 spring:
+  ## 此配置用来解决spring和swagger的冲突问题
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   cloud:
     nacos:
       discovery:
@@ -19,5 +22,6 @@ spring:
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
-    #    Java Persistence API
-    #    缓存数据
+## mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml

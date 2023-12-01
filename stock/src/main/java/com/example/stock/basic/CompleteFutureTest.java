@@ -213,7 +213,7 @@ public class CompleteFutureTest {
         Map<String, List<String>> map = new HashMap<>();
         String file = "C:\\Users\\lejun\\Desktop\\world\\test\\voice";
         String target = "C:\\Users\\lejun\\Desktop\\world\\test\\语音\\voice.zip";
-        FileUtils.zip(file, target);
+//        FileUtils.zip(file, target);
         map.put("delete", Arrays.asList(file));
         map.put("file", Arrays.asList("C:\\Users\\lejun\\Desktop\\world\\test\\语音"));
         log.info("已完成语音处理！");
@@ -224,7 +224,7 @@ public class CompleteFutureTest {
         Map<String, List<String>> map = new HashMap<>();
         String file = "C:\\Users\\lejun\\Desktop\\world\\test\\message";
         String target = "C:\\Users\\lejun\\Desktop\\world\\test\\短信\\message.zip";
-        FileUtils.zip(file, target);
+//        FileUtils.zip(file, target);
         map.put("delete", Arrays.asList(file));
         for (String s : Arrays.asList(file)) {
             File deleteFile = Paths.get(s).toFile();

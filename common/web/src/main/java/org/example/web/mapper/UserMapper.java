@@ -1,8 +1,8 @@
 package org.example.web.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.example.web.pojo.UserInfo;
-import org.springframework.stereotype.Repository;
 
 /**
  * @Author: lejun
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @description:
  * @time: 2023/11/20 16:04
  */
-@Repository
+@Mapper
 public interface UserMapper extends BaseMapper<UserInfo> {
     /**
      * 根据条件，查询用户

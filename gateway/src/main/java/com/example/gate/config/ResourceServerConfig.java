@@ -48,7 +48,7 @@ public class ResourceServerConfig {
         http.addFilterBefore(ignoreUrlsRemoveJwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
         http.authorizeExchange()
                 //白名单配置
-//                .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(),String.class)).permitAll()
+                .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(),String.class)).permitAll()
                 //鉴权管理器配置
                 .anyExchange().access(authorizationManager)
                 .and().exceptionHandling()

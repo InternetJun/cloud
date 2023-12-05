@@ -1,5 +1,6 @@
 package org.example.web.util;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import org.example.common.core.util.CommonUtil;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -191,9 +192,16 @@ public class RedisUtil {
      * @return true成功 false 失败
      */
     public boolean set(String key, Object value, long time) {
+        return set(key, value, time, null);
+    }
+
+    public boolean set(String key, Object value, long l, TimeUnit seconds) {
+        if (ObjectUtil.isEmpty(seconds)) {
+            seconds = TimeUnit.SECONDS;
+        }
         try {
-            if (time > 0) {
-                redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
+            if (l > 0) {
+                redisTemplate.opsForValue().set(key, value, l, seconds);
             } else {
                 set(key, value);
             }
@@ -202,6 +210,7 @@ public class RedisUtil {
             e.printStackTrace();
             return false;
         }
+
     }
 }
 

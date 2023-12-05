@@ -9,10 +9,9 @@
         <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="phone" property="phone" jdbcType="VARCHAR"/>
         <result column="account_non_locked" property="accountNonLocked" jdbcType="TINYINT"/>
-        <collection property="roles" ofType="map" column="id" select="selectRolesByUserId">
-        </collection>
     </resultMap>
     <select id="selectUser" resultMap="BaseResultMap" parameterType="org.example.web.pojo.UserInfo">
+        select
         <include refid="Base_Column_List"/>
         from t_user
         where username = #{username}

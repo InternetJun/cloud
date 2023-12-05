@@ -118,4 +118,12 @@ public class UserInfo implements UserDetails {
     public void setRoles(List<RoleInfo> roles) {
         this.roles = roles;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "username='" + username + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }

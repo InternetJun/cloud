@@ -12,6 +12,7 @@
         <module>stock</module>
         <module>common</module>
         <module>auth</module>
+        <module>auth-jwt</module>
     </modules>
     <packaging>pom</packaging>
     <parent>

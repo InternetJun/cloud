@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @description: 对用户的操作，有权限
  * @time: 2023/11/20 16:36
  */
-public class DefaultUserImpl extends AbstractUserImpl implements UserDetailsService {
+public class DefaultUserImpl extends AbstractUserImpl {
     private final UserMapper userMapper;
 
     /**

@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.management.relation.RoleInfo;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ import java.util.List;
 @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 @Getter
 @Setter
-public class PermissionInfo {
+public class PermissionInfo implements Serializable {
     private static final long serialVersionUID = 874671003093440548L;
 
     /** 权限id */

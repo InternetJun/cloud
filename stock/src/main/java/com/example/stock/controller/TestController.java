@@ -43,4 +43,9 @@ public class TestController {
     public String getCompose(@ApiParam(value = "{}") @RequestBody Map<String, Object> map) {
         return "compose";
     }
+
+    @GetMapping("/test")
+    public String test() {
+        return "test2";
+    }
 }

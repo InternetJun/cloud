@@ -15,7 +15,7 @@
     <modules>
         <module>swagger</module>
         <module>core</module>
-        <module>web</module>
+        <module>security-filter</module>
     </modules>
 
 </project>

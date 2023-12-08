@@ -9,7 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /**
  * @author lejun
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.example.stock","org.example.web.filter"})
 @EnableDiscoveryClient
 public class StockApplication {
     public static void main(String[] args) {

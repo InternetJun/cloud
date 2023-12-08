@@ -222,12 +222,12 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.SecurityConfig" />
       <item itemvalue="JUnit.Leet1103.testTwo" />
       <item itemvalue="JUnit.Leet1114.main" />
-      <item itemvalue="Spring Boot.GateWayApplication" />
       <item itemvalue="Spring Boot.AuthApplication" />
+      <item itemvalue="Spring Boot.GateWayApplication" />
       <item itemvalue="Spring Boot.StockApplication" />
-      <item itemvalue="Application.SecurityConfig" />
     </list>
     <recent_temporary>
       <list>

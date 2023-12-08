@@ -1,8 +1,9 @@
 package com.example.gate.authorization;
 
 import cn.hutool.core.convert.Convert;
-import com.example.gate.constant.AuthConstant;
-import com.example.gate.constant.RedisConstant;
+import org.example.common.core.constant.AuthConstant;
+import org.example.common.core.constant.RedisConstant;
+import org.example.common.core.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authorization.AuthorizationDecision;
@@ -26,15 +27,15 @@ import java.util.stream.Collectors;
 @Component
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisUtil redisUtil;
 
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext authorizationContext) {
         //从Redis中获取当前路径可访问角色列表
-        URI uri = authorizationContext.getExchange().getRequest().getURI();
-        Object obj = redisTemplate.opsForHash().get(RedisConstant.RESOURCE_ROLES_MAP, uri.getPath());
+//        URI uri = authorizationContext.getExchange().getRequest().getURI();
+        Object obj = redisUtil.get(RedisConstant.RESOURCE_ROLES_MAP);
         List<String> authorities = Convert.toList(String.class,obj);
-        authorities = authorities.stream().map(i -> i = AuthConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
+//        authorities = authorities.stream().collect(Collectors.toList());
         //认证通过且角色匹配的用户可访问当前路径
         return mono
                 .filter(Authentication::isAuthenticated)

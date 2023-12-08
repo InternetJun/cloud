@@ -4,9 +4,10 @@ import cn.hutool.core.util.ArrayUtil;
 import com.example.gate.authorization.AuthorizationManager;
 import com.example.gate.component.RestAuthenticationEntryPoint;
 import com.example.gate.component.RestfulAccessDeniedHandler;
-import com.example.gate.constant.AuthConstant;
+
 import com.example.gate.filter.IgnoreUrlsRemoveJwtFilter;
 import lombok.AllArgsConstructor;
+import org.example.common.core.constant.AuthConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;

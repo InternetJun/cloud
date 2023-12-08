@@ -1,0 +1,28 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.example.auth.mapper.ClientMapper">
+    <select id="getClient" resultType="org.example.auth.pojo.Client">
+        SELECT *
+        FROM CLIENT
+        WHERE ID = #{id}
+    </select>
+
+    <select id="getAuthorize" resultType="java.util.Map">
+        SELECT
+            ca.NAME as authorities
+        FROM
+            MAPPING_CLIENT_TO_CLIENT_AUTHORITY mctca
+                LEFT JOIN CLIENT_AUTHORITY ca ON ca.ID = mctca.CLIENT_AUTHORITY_ID
+        WHERE
+            mctca.CLIENT_ID = #{id}
+    </select>
+
+    <select id="getResource" resultType="java.util.Map">
+        SELECT
+            RESOURCE_SERVER_ID as resourceIds
+        FROM
+            MAPPING_CLIENT_TO_RESOURCE_SERVER
+        WHERE
+            CLIENT_ID = #{id}
+    </select>
+
+</mapper>

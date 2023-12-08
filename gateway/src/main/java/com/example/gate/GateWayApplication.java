@@ -8,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /**
  * @author lejun
  */
-@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
+@SpringBootApplication(scanBasePackages = {"com.example.gate", "org.example.common.core"})
 @EnableDiscoveryClient
 public class GateWayApplication {
     public static void main(String[] args) {

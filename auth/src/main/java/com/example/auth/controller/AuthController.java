@@ -2,6 +2,7 @@ package com.example.auth.controller;
 
 import com.example.auth.domain.Oauth2TokenDto;
 import org.example.common.core.httpEntity.Result;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;

@@ -1,6 +1,7 @@
 package com.example.gate.component;
 
 import cn.hutool.json.JSONUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.example.common.core.httpEntity.Result;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;

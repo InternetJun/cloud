@@ -1,5 +1,6 @@
 package org.example.common.core.util;
 
+import com.alibaba.fastjson.JSONObject;
 import org.example.common.core.leetcode.tree.TreeNode;
 import org.example.common.core.util.fileDispose.FileCommentUtil;
 
@@ -175,4 +176,9 @@ public class CommonUtil {
         return ts;
     }
 
+    // 解析字符串为二维数组的方法
+    public static int[][] parseStringToArray(String inputString) {
+        int[][] result = JSONObject.parseObject(inputString, int[][].class);
+        return result;
+    }
 }

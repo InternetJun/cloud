@@ -3,6 +3,7 @@ package org.example.common.core.util;
 import com.alibaba.fastjson.JSONObject;
 import org.example.common.core.leetcode.tree.TreeNode;
 import org.example.common.core.util.fileDispose.FileCommentUtil;
+import org.junit.Test;
 
 import java.util.*;
 
@@ -22,6 +23,20 @@ public class CommonUtil {
                 System.out.printf("%4d", array[i][j]); // Adjust the width as needed
             }
             System.out.println(); // Move to the next row
+        }
+    }
+
+    public static <T> void formatArray(T[][] array) {
+        int numRows = array.length;
+        int numCols = array[0].length;
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                // Adjust the width as needed
+                System.out.printf("%8s", array[i][j]);
+            }
+            // Move to the next row
+            System.out.println();
         }
     }
 

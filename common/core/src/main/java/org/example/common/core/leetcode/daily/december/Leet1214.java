@@ -1,5 +1,6 @@
 package org.example.common.core.leetcode.daily.december;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.common.core.util.CommonUtil;
 import org.junit.Test;
 
@@ -9,6 +10,7 @@ import org.junit.Test;
  * @description: 二维前缀和二维差分
  * @time: 2023/12/14 13:02
  */
+@Slf4j
 public class Leet1214 {
     /**
      * <href>https://leetcode.cn/problems/stamping-the-grid/solutions/2562069/yong-you-piao-tie-man-wang-ge-tu-by-leet-kiaq/?envType=daily-question&envId=2023-12-14</href>
@@ -70,6 +72,8 @@ public class Leet1214 {
                 }
             }
         }
+        log.info("======================");
+        CommonUtil.formatAndDisplayArray(diff);
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
                 // 这里的用意是什么？

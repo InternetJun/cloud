@@ -6,6 +6,11 @@
         WHERE ID = #{id}
     </select>
 
+    <select id="getClientList" resultType="java.lang.String">
+        SELECT id
+        FROM CLIENT
+    </select>
+
     <select id="getAuthorize" resultType="java.util.Map">
         SELECT
             ca.NAME as authorities
@@ -24,5 +29,10 @@
         WHERE
             CLIENT_ID = #{id}
     </select>
+
+    <insert id="insertClientAuthorization">
+        insert into mapping_client_to_client_authority
+        SELECT #{clientId} as client_id, id from client_authority WHERE name in ('JUNIOR_CLIENT');
+    </insert>
 
 </mapper>

@@ -2,11 +2,14 @@ package org.example.auth.config.securityoauth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.example.auth.point.client.CustomAuthenticationEntryPoint;
 import org.example.common.core.httpEntity.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,6 +25,7 @@ import java.io.PrintWriter;
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
@@ -32,8 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .authorizeRequests()
-                //放行
-                .antMatchers("/oauth/token","/login/**","/logout/**", "/rsa/publicKey").permitAll()
+                //放行对于swagger是需要有这个路径的
+                .antMatchers("/webjars/**", "/doc.html", "/swagger-resources/**", "/v2/api-docs",
+                        "/oauth/token","/login/**","/logout/**", "/rsa/publicKey").permitAll()
                 .anyRequest().authenticated()//其他路径拦截
                 .and()
                 .formLogin().permitAll()
@@ -111,7 +116,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("js/**", "css/**", "images/**");
+        //放行swagger
+        web.ignoring().antMatchers(HttpMethod.GET,
+                "/v2/api-docs/",
+                "/swagger-resources",
+                "/swagger-resources/**",
+                "/configuration/ui",
+                "/configuration/security",
+                "/swagger-ui.html/**",
+                // 静态资源放行
+                "js/**", "css/**", "images/**");
     }
 
     //注册解码器

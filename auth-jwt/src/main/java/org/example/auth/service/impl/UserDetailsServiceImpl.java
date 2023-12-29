@@ -1,4 +1,4 @@
-package org.example.auth.service;
+package org.example.auth.service.impl;
 
 import org.example.auth.mapper.RoleMapper;
 import org.example.auth.mapper.UserMapper;

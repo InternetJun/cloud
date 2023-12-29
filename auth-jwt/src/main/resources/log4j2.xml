@@ -80,4 +80,13 @@
             <appender-ref ref="RollingFileError"/>
         </root>
     </loggers>
+    <appender name="skywalking" class="org.apache.logging.log4j.core.appender.OutputStreamAppender">
+        <encoder class="org.apache.skywalking.apm.toolkit.log.log4j2.SkywalkingLogEncoder">
+            <endpoint>127.0.0.1:11800</endpoint>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="skywalking"/>
+    </root>
 </configuration>

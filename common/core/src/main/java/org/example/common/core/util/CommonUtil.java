@@ -1,6 +1,7 @@
 package org.example.common.core.util;
 
 import com.alibaba.fastjson.JSONObject;
+import org.example.common.core.leetcode.link.ListNode;
 import org.example.common.core.leetcode.tree.TreeNode;
 import org.example.common.core.util.fileDispose.FileCommentUtil;
 import org.junit.Test;
@@ -14,6 +15,23 @@ import java.util.*;
  * @time: 2023/11/6 11:19
  */
 public class CommonUtil {
+
+    public static ListNode buildLinkedList(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return null;
+        }
+
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+
+        for (int value : arr) {
+            current.next = new ListNode(value);
+            current = current.next;
+        }
+
+        return dummy.next;
+    }
+
     public static void formatAndDisplayArray(int[][] array) {
         int numRows = array.length;
         int numCols = array[0].length;

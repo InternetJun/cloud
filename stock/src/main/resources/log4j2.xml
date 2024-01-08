@@ -6,10 +6,14 @@
         <!-- %logger{36} 表示 Logger 名字最长36个字符 -->
         <property name="LOG_PATTERN" value="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
         <!-- 定义日志存储的路径 -->
-        <property name="FILE_PATH" value="../../logs/core/"/>
+        <property name="FILE_PATH" value="../logs/stock/"/>
         <property name="FILE_NAME" value="log4j2Demo"/>
     </Properties>
+    <!--skywalking日志收集-->
     <appenders>
+        <GRPCLogClientAppender name="grpc-log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </GRPCLogClientAppender>
         <Console name="Console" target="SYSTEM_OUT">
             <!--设置日志格式及颜色-->
             <PatternLayout
@@ -78,6 +82,16 @@
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileWarn"/>
             <appender-ref ref="RollingFileError"/>
+            <AppenderRef ref="grpc-log"/>
         </root>
     </loggers>
+    <!--<appender name="skywalking" class="org.apache.logging.log4j.core.appender.OutputStreamAppender">
+        <encoder class="org.apache.skywalking.apm.toolkit.log.log4j2.SkywalkingLogEncoder">
+            <endpoint>127.0.0.1:11800</endpoint>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="skywalking"/>
+    </root>-->
 </configuration>

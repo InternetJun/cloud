@@ -1,6 +1,8 @@
 package org.example.common.core.leetcode.twentyFour.January;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.common.core.leetcode.tree.TreeNode;
+import org.example.common.core.util.CommonUtil;
 import org.junit.Test;
 
 import java.util.*;
@@ -16,12 +18,12 @@ import java.util.stream.Collectors;
 public class Leet0113 {
     /**
      * <href> https://leetcode.cn/problems/construct-string-with-repeat-limit/description/?envType=daily-question&envId=2024-01-13</href>
-     *
+     * <p>
      * 要求不必全部的字符。
      * 字典序最大。
      * <p>
-     *
-     *   输入：s = "aababab"
+     * <p>
+     * 输入：s = "aababab"
      * 使用 s 中的一些字符来构造 repeatLimitedString "bbabaa"。
      * 字母 'a' 连续出现至多 2 次。
      * 字母 'b' 连续出现至多 2 次。
@@ -58,8 +60,51 @@ public class Leet0113 {
     }
 
     @Test
-    public void main(){
+    public void main() {
         String s = "aababab";
         repeatLimitedString(s, 2);
+    }
+
+    public String repeatLimitStringSolution(String s, int limit) {
+        final int[] count = new int[26];
+        int N = 26;
+        for (char c : s.toCharArray()) {
+            count[c - 'a']++;
+        }
+        final StringBuilder res = new StringBuilder();
+        int m = 0;
+        for (int i = N - 1, j = N - 2; i >= 0 && j >= 0; ) {
+            // 用完了
+            if (count[i] == 0) {
+                m = 0;
+                i--;
+            } else if (m < limit) {
+                count[i]--;
+                res.append((char) ('a' + i));
+                m++;
+                // 当前字符已经超过限制，查找可填入的其他字符
+            } else if (j >= i || count[j] == 0) {
+                j--;
+                // 当前字符已经超过限制，填入其他字符，并且重置 m
+            } else {
+                count[j]--;
+                res.append((char) ('a' + j));
+                m = 0;
+            }
+        }
+        return res.toString();
+    }
+
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        // 这里会有在子节点的时候。误判了。所以加上这句话
+        if (p == null && q == null) {
+            return true;
+        } else if (p == null || q == null) {
+            return false;
+        } else if (p.val != q.val) {
+            return false;
+        } else {
+            return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        }
     }
 }

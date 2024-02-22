@@ -5,8 +5,7 @@ import org.example.common.core.leetcode.link.ListNode;
 import org.example.common.core.util.CommonUtil;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.*;
 
 /**
  * @Author: lejun
@@ -84,6 +83,77 @@ public class Hot100 {
             }
         }
         return dp[m][n];
+    }
+
+    /**
+     * 在数组中获取最长的递增序列长度。
+     *
+     * dp的定义是 以i的最长。
+     * <p>
+     *     4(1 2 3)
+     * </p>
+     *
+     * 初始条件dp = 1；
+     * @param nums
+     * @return
+     */
+    public int longestConsecutiveMe(int[] nums) {
+//        int len = nums.length;
+//        final int[] dp = new int[len];
+//        Arrays.fill(dp, 1);
+//        // [100,4,200,1,3,2]
+//        return Arrays.stream(dp).max().getAsInt(); 要用的是队列。
+        /**
+         * 100 4 200 1 3 2;
+         */
+        return 0;
+    }
+
+    public int longestConsecutive(int[] nums) {
+        // 转化成哈希集合，方便快速查找是否存在某个元素
+        HashSet<Integer> set = new HashSet<Integer>();
+        for (int num : nums) {
+            set.add(num);
+        }
+
+        int res = 0;
+
+        for (int num : set) {
+            if (set.contains(num - 1)) {
+                // num 不是连续子序列的第一个，跳过
+                continue;
+            }
+            // num 是连续子序列的第一个，开始向上计算连续子序列的长度
+            int curNum = num;
+            int curLen = 1;
+
+            while (set.contains(curNum + 1)) {
+                curNum += 1;
+                curLen += 1;
+            }
+            // 更新最长连续序列的长度
+            res = Math.max(res, curLen);
+        }
+
+        return res;
+    }
+
+    /**
+     *
+     * 获取最长的无重复的字符长度。
+     *
+     * @param s
+     * @return
+     */
+    public String repeatString(String s) {
+        /**
+         * leftIndex = -1；
+         * if(right - left > maxLen) {
+         *     leftIndex = left;
+         * }
+         * s.substring();
+         */
+        return "";
     }
 
     public void setZeroes(int[][] matrix) {

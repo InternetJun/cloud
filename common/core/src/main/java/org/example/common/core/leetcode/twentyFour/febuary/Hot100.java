@@ -1,6 +1,7 @@
 package org.example.common.core.leetcode.twentyFour.febuary;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.example.common.core.leetcode.link.ListNode;
 import org.example.common.core.util.CommonUtil;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import java.util.*;
  * @description:
  * @time: 2024/2/21 21:29
  */
+@Slf4j
 public class Hot100 {
     /**
      * t:79
@@ -87,13 +89,14 @@ public class Hot100 {
 
     /**
      * 在数组中获取最长的递增序列长度。
-     *
+     * <p>
      * dp的定义是 以i的最长。
      * <p>
-     *     4(1 2 3)
+     * 4(1 2 3)
      * </p>
-     *
+     * <p>
      * 初始条件dp = 1；
+     *
      * @param nums
      * @return
      */
@@ -139,7 +142,6 @@ public class Hot100 {
     }
 
     /**
-     *
      * 获取最长的无重复的字符长度。
      *
      * @param s
@@ -278,7 +280,7 @@ public class Hot100 {
     }
 
     public ListNode swapPairs(ListNode head) {
-        if(head == null || head.next == null){
+        if (head == null || head.next == null) {
             return head;
         }
         ListNode next = head.next;
@@ -291,5 +293,58 @@ public class Hot100 {
     public void testSwap() {
         final ListNode node = CommonUtil.buildLinkedList(new int[]{1, 2, 3, 4, 5});
         System.out.println(swapPairs(node));
+    }
+
+    /**
+     * 滑动的窗口max值。
+     * <p>
+     * 8 - 3 + 1
+     * 滑动窗口的位置                最大值
+     * ---------------               -----
+     * [1  【3】  -1] -3  5  3  6  7      3
+     * 1 [【3】  -1  -3] 5  3  6  7       3
+     * 1  3 [-1  -3  【5】] 3  6  7       5
+     * 1  3  -1 [-3  【5】  3] 6  7       5
+     * 1  3  -1  -3 [5  3  【6】] 7       6
+     * 1  3  -1  -3  5 [3  6  【7】]      7
+     * 需要记录的是最大的坐标，要是在其中的话还可以比较，不在的话就要重新计算了。
+     * </p>
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        // 特殊情况的判断。
+        if (nums.length == k || nums.length < k) {
+            return new int[]{Arrays.stream(nums).sum()};
+        }
+        final int[] res = new int[nums.length - k + 1];
+        int len = nums.length;
+        int left = 0, preSum = 0;
+//        MonotonicQueue window = new MonotonicQueue();
+        while (left < len - k) {
+            if (left == 0) {
+                for (int i = left; i < k + left; i++) {
+                    preSum += nums[i];
+                }
+            } else {
+                // 要的是每个窗口中的最大值。
+                log.info("preSum:{}, left:{},right:{}", preSum, nums[left - 1], nums[left + k - 1]);
+                preSum = preSum - nums[left - 1] + nums[left + k - 1];
+            }
+            // 在移动时候判断
+            res[left] = preSum;
+            left++;
+        }
+        return res;
+    }
+
+    @Test
+    public void testWindow() {
+        int[] nums = {
+                1, 3, -1, -3, 5, 3, 6, 7
+        };
+        System.out.println(Arrays.toString(maxSlidingWindow(nums, 3)));
     }
 }

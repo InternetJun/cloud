@@ -3,6 +3,7 @@ package org.example.common.core.leetcode.twentyFour.febuary;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.example.common.core.leetcode.link.ListNode;
+import org.example.common.core.leetcode.tree.TreeNode;
 import org.example.common.core.util.CommonUtil;
 import org.junit.Test;
 
@@ -488,4 +489,82 @@ public class Hot100 {
         return res;
     }
 
+    final List<LinkedList<Integer>> listPath = new LinkedList<>();
+
+    /**
+     * 不必要从根节点开始。只要满足从上到下就可以了。
+     *
+     * @param root
+     * @param targetSum
+     * @return
+     */
+    public int pathSum(TreeNode root, int targetSum) {
+        if (root == null) {
+            return 0;
+        }
+        final LinkedList<Integer> list = new LinkedList<>();
+        int ret = dfsTree(root, targetSum, list);
+        ret += pathSum(root.left, targetSum);
+        ret += pathSum(root.right, targetSum);
+        log.info("所有路径的记录如下：{}", listPath);
+        return ret;
+    }
+
+    /**
+     * 但是路径方向必须是向下的（只能从父节点到子节点）
+     * <p>
+     * 怎么保证他的方向是一致的，不要左右的摇摆处理？？？
+     * <p>
+     * 是的。要有左右开弓的处理。res[left]+res[right];
+     * </p>
+     * </p>
+     *
+     * @param root
+     * @param targetSum
+     * @param pathRecord
+     */
+    public int dfsTree(TreeNode root, int targetSum, LinkedList<Integer> pathRecord) {
+        int ret = 0;
+
+        if (root == null) {
+            return 0;
+        }
+        // 记录下经过的路径值。
+        int val = root.val;
+        pathRecord.addLast(val);
+        if (val == targetSum) {
+            // 记录下该有的值。
+            ret++;
+        }
+        ret += dfsTree(root.left, targetSum - val, pathRecord);
+        ret += dfsTree(root.right, targetSum - val, pathRecord);
+        return ret;
+    }
+
+    @Test
+    public void testSumTree() {
+        final TreeNode root = CommonUtil.buildTree(new Integer[]{5,4,8,11,null,13,4,7,2,null,null,5,1});
+        final List<List<Integer>> lists = pathSumRecord(root, 22);
+        log.info("总路径的条是：{}", res);
+    }
+    LinkedList<List<Integer>> res = new LinkedList<>();
+    LinkedList<Integer> path = new LinkedList<>();
+    public List<List<Integer>> pathSumRecord(TreeNode root, int targetSum) {
+        recur(root, targetSum);
+        return res;
+    }
+    void recur(TreeNode root, int tar) {
+        if (root == null) {
+            return;
+        }
+        path.add(root.val);
+        tar -= root.val;
+        // 表明了是一个叶子节点啊
+        if (tar == 0 && root.left == null && root.right == null) {
+            res.add(new LinkedList<Integer>(path));
+        }
+        recur(root.left, tar);
+        recur(root.right, tar);
+        path.removeLast();
+    }
 }

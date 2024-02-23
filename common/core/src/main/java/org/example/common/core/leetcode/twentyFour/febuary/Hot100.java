@@ -347,4 +347,86 @@ public class Hot100 {
         };
         System.out.println(Arrays.toString(maxSlidingWindow(nums, 3)));
     }
+
+    /**
+     * 轮转数组
+     * <p>
+     * 1,2,3,4,5,6,7
+     * 5,6,7,1,2,3,4
+     * </p>
+     *
+     * @param nums
+     * @param k
+     */
+    public void rotateMe(int[] nums, int k) {
+        int len = nums.length;
+        // 真实移动的东西。
+        int remain = k % len;
+        int tmp = -1;
+        for (int i = 0; i < len; i++) {
+            // i -> index; index -> 另外一个 index + k
+            int index = (i + remain) % len;
+            tmp = nums[index];
+            nums[index] = nums[i];
+
+        }
+    }
+
+    public void rotate(int[] nums, int k) {
+        int n = nums.length;
+        k = k % n;
+        int count = gcd(k, n);
+        for (int start = 0; start < count; ++start) {
+            int current = start;
+            int prev = nums[start];
+            do {
+                int next = (current + k) % n;
+                int temp = nums[next];
+                nums[next] = prev;
+                prev = temp;
+                current = next;
+            } while (start != current);
+        }
+    }
+
+    public int gcd(int x, int y) {
+        return y > 0 ? gcd(y, x % y) : x;
+    }
+
+    /**
+     * 除自身以外的乘积。不允许使用除法。
+     * 使用左右两边的乘积。
+     *
+     * @param nums
+     * @return
+     */
+    public int[] productExceptSelf(int[] nums) {
+        int len = nums.length;
+        int[] L = new int[len];
+        int[] R = new int[len];
+        int[] res = new int[len];
+        L[0] = 1;
+        for (int i = 1; i < len; i++) {
+            L[i] = nums[i - 1] * L[i - 1];
+        }
+        R[len - 1] = 1;
+        for (int i = len - 2; i >= 0; i--) {
+            R[i] = R[i + 1] * nums[i + 1];
+        }
+        // L[0] * R[0] ==> nums[0]...nums[i-1] * nums[i+1]...nums[len]
+        log.info("left:{}\nright:{}", L, R);
+        for (int i = 0; i < len; i++) {
+            // 0 L[0] * R[0]
+            res[i] = L[i] * R[i];
+        }
+        return res;
+    }
+
+    @Test
+    public void testExceptSelf() {
+        // [24,12,8,6]
+        int[] nums = {1, 2, 3, 4};
+        System.out.println(Arrays.toString(productExceptSelf(nums)));
+    }
+
 }

@@ -429,4 +429,63 @@ public class Hot100 {
         System.out.println(Arrays.toString(productExceptSelf(nums)));
     }
 
+    /**
+     * 最大的子数组和
+     * <p>
+     * 输入：nums = [-2,1,-3,【4,-1,2,1】,-5,4]
+     * 输出：6
+     * 解释：连续子数组 [4,-1,2,1] 的和最大，为 6
+     * dp_ij ==> i_j的最大的和。
+     * [0,j+1] == [o,j] *  nums[j+1];
+     * dp[i][i] = nums[i];
+     * dp_i,j+1 = dp_ij * nums[j+1];
+     * dp_i-1,j ==>
+     * </p>
+     *
+     * @param nums
+     * @return
+     */
+    public int maxSubArray(int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        // 定义：dp[i] 记录以 nums[i] 为结尾的「最大子数组和」
+        int[] dp = new int[n];
+        // base case
+        // 第一个元素前面没有子数组
+        dp[0] = nums[0];
+        // 状态转移方程
+        for (int i = 1; i < n; i++) {
+            dp[i] = Math.max(nums[i], nums[i] + dp[i - 1]);
+        }
+        // 得到 nums 的最大子数组
+        int res = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            res = Math.max(res, dp[i]);
+        }
+        return res;
+    }
+
+
+    int maxSubArrayZip(int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        // base case
+        int dp_0 = nums[0];
+        int dp_1 = 0, res = dp_0;
+
+        for (int i = 1; i < n; i++) {
+            // dp[i] = max(nums[i], nums[i] + dp[i-1])
+            dp_1 = Math.max(nums[i], nums[i] + dp_0);
+            dp_0 = dp_1;
+            // 顺便计算最大的结果
+            res = Math.max(res, dp_1);
+        }
+
+        return res;
+    }
+
 }

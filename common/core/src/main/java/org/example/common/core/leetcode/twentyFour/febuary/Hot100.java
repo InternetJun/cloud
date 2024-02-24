@@ -8,6 +8,8 @@ import org.example.common.core.util.CommonUtil;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * @Author: lejun
@@ -566,5 +568,129 @@ public class Hot100 {
         recur(root.left, tar);
         recur(root.right, tar);
         path.removeLast();
+    }
+
+    public List<List<Integer>> closestNodes(TreeNode root, List<Integer> queries) {
+        List<Integer> arr = new ArrayList<Integer>();
+        dfs(root, arr);
+
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        for (int val : queries) {
+            int maxVal = -1, minVal = -1;
+            int idx = binarySearch(arr, val);
+            if (idx != arr.size()) {
+                maxVal = arr.get(idx);
+                if (arr.get(idx) == val) {
+                    minVal = val;
+                    List<Integer> list = new ArrayList<Integer>();
+                    list.add(minVal);
+                    list.add(maxVal);
+                    res.add(list);
+                    continue;
+                }
+            }
+            if (idx > 0) {
+                minVal = arr.get(idx - 1);
+            }
+            List<Integer> list2 = new ArrayList<Integer>();
+            list2.add(minVal);
+            list2.add(maxVal);
+            res.add(list2);
+        }
+        return res;
+    }
+
+    public void dfs(TreeNode root, List<Integer> arr) {
+        if (root == null) {
+            return;
+        }
+        dfs(root.left, arr);
+        arr.add(root.val);
+        dfs(root.right, arr);
+    }
+
+    /**
+     * 大于val的最左的index
+     *
+     * @param arr
+     * @param target
+     * @return
+     */
+    public int binarySearch(List<Integer> arr, int target) {
+        int low = 0, high = arr.size();
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            // 并使用二分查找在索引中找到大于等于 val 最左侧的索引 index
+            if (arr.get(mid) >= target) {
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+
+    class Solution {
+        /**
+         * 获取val的第一个位置和最后一个位置。
+         *
+         * @param nums
+         * @param target
+         * @return
+         */
+        public int[] searchRange(int[] nums, int target) {
+            return new int[]{left_bound(nums, target), right_bound(nums, target)};
+        }
+
+        int left_bound(int[] nums, int target) {
+            int left = 0, right = nums.length - 1;
+            // 搜索区间为 [left, right]
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] < target) {
+                    // 搜索区间变为 [mid+1, right]
+                    left = mid + 1;
+                } else if (nums[mid] > target) {
+                    // 搜索区间变为 [left, mid-1]
+                    right = mid - 1;
+                } else if (nums[mid] == target) {
+                    // 收缩右侧边界
+                    right = mid - 1;
+                }
+            }
+            // 检查出界情况
+            if (left >= nums.length || nums[left] != target) {
+
+                return -1;
+            }
+            return left;
+        }
+
+        int right_bound(int[] nums, int target) {
+            int left = 0, right = nums.length - 1;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] < target) {
+                    left = mid + 1;
+                } else if (nums[mid] > target) {
+                    right = mid - 1;
+                } else if (nums[mid] == target) {
+                    // 这里改成收缩左侧边界即可
+                    left = mid + 1;
+                }
+            }
+            // 这里改为检查 right 越界的情况，见下图
+            if (right < 0 || nums[right] != target) {
+
+                return -1;
+            }
+            return right;
+        }
+    }
+
+    @Test
+    public void main(){
+        final List<Integer> list = Arrays.asList(1, 2, 3, 3, 4);
+        System.out.println(binarySearch(list, 3));
     }
 }

@@ -493,6 +493,38 @@ public class Hot100 {
 
     final List<LinkedList<Integer>> listPath = new LinkedList<>();
 
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        } else if (p == null || q == null) {
+            return false;
+        }
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // base case
+        if (root == null) {
+            return null;
+        }
+        if (root == p || root == q) {
+            return root;
+        }
+
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        // 情况 1
+        if (left != null && right != null) {
+            return root;
+        }
+        // 情况 2
+        if (left == null && right == null) {
+            return null;
+        }
+        // 情况 3
+        return left == null ? right : left;
+    }
+
     /**
      * 不必要从根节点开始。只要满足从上到下就可以了。
      *

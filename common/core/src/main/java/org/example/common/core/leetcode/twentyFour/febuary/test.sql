@@ -98,3 +98,53 @@ select id,
        End Type
 from tree;
 -- exists一般是用于where后面的条件。不要使用在case when中了。
+
+-- 买下所有产品的目的。就是有值相同
+select
+customer_id
+from (
+select
+customer_id,
+listagg(product_key) as product
+from Customer
+-- 获取所有的列表，可以用逗号分隔。listagg;
+      group by customer_id) a
+where product =
+(select listagg(product_id, ',') from Product)
+
+SELECT customer_id
+FROM customer c
+GROUP BY customer_id
+HAVING COUNT(distinct product_key) =
+(SELECT COUNT(product_key) FROM product);
+
+-- 编写解决方案，选出每个售出过的产品
+-- 第一年 销售的 产品 id、年份、数量 和 价格。
+/**
+product_id	year	ran	quantity	price
+100	        2008	1	10	5000
+100	        2008	2	20	5000
+100	        2009	3	12	5000
+200	        2011	1	15	9000
+  有两个函数。rank(),row_number();不同的是？
+  1，rank()对同年的可以处理。
+  2，row_number()知识对数据进行一个排序。
+ */
+
+select product_id,year first_year,quantity,price
+from (
+    select product_id,year,
+    ROW_NUMBER() over(partition by product_id order by year)ran,quantity,price
+    from Sales
+    )t
+where ran = 1;
+-- 进一步获取所有的当年的数据
+SELECT distinct product_id, first_year, price, sum(quantity) as quanity
+FROM (
+         select product_id, year first_year, quantity, price
+         from (
+             select product_id, year, rank() over(partition by product_id order by year) ran, quantity, price
+             from Sales
+             ) t
+         where ran = 1) s
+group by product_id, first_year, price;

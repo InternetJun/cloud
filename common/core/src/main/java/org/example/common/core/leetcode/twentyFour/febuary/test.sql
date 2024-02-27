@@ -148,3 +148,43 @@ FROM (
              ) t
          where ran = 1) s
 group by product_id, first_year, price;
+
+-- 每个用户的确认率的函数。
+/**
+  必须要注意的是每个用户都要存在的。不是说查出了就是
+ */
+
+select
+       sign.user_id,
+       if(records = 0, 0.0, round(confirm/, 2)) as confirmation_rate
+from
+     Signs sign
+         left join
+     (
+         select
+         sign.user_id,
+         count(*) as records,
+         count(if(action = 'confirmation', 1, 0)) confirm,
+         from Confirmations con
+        group by user_id
+) a
+on sign.user_id = a.user_id
+-- 解答；
+
+    # Write your MySQL query statement below
+/*# 分子除以分母，外面再套一层round四舍五入
+# 分子的count中，case when then else end，省略了else，那就代表不符合case when的条件时为null，也就不会被统计进数量
+  avg的函数是什么?
+  可以对
+
+  */
+SELECT
+    s.user_id,
+    ROUND(IFNULL(AVG(c.action = 'confirmed'), 0), 2) AS confirmation_rate
+    --ROUND(SUM(IF(c.action = 'confirmed',1,0)) / SUM(1), 2) AS confirmation_rate
+FROM
+    Signups s
+        LEFT JOIN confirmations c
+                  USING(user_id)
+GROUP BY
+    s.user_id

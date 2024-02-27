@@ -10,6 +10,7 @@ import org.junit.Test;
 import java.util.*;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedTransferQueue;
 
 /**
  * @Author: lejun
@@ -936,6 +937,96 @@ public class Hot100 {
         } else {
             return step;
         }
+    }
+
+    /**
+     * 判断是否可以认为是一个质数的方法
+     *
+     * @param n
+     * @return
+     */
+    public static boolean isPrime(int n) {
+        if (n <= 3) {
+            return n > 1;
+        }
+        //只需判断一个数能否被小于sqrt(n)的奇数整除
+        int sqrt = (int)Math.sqrt(n);
+        for (int i = 3; i <= sqrt; i += 2) {
+            if(n % 2 == 0 || n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 获取到右视图的数据。
+     * <p>
+     *     思路是什么？每一层的最后一个节点。怎么判断是最后一个节点呢？
+     *     1
+     *   2  3
+     * 5
+     * </p>
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> rightSideView(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<Integer>();
+        }
+        final ArrayList<Integer> list = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            final ArrayList<Integer> temp = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                // 特殊情况为root的时候。2，普通节点；--> 有1,后序都没有啊。
+                final TreeNode poll = queue.poll();
+                temp.add(poll.val);
+                if (poll.left != null) {
+                    queue.add(poll.left);
+                }
+                if (poll.right != null) {
+                    queue.add(poll.right);
+                }
+            }
+            list.add(temp.get(temp.size()-1));
+        }
+        return list;
+    }
+
+    @Test
+    public void mainRight() {
+        /**
+         * [1,null,3]
+         * []
+         */
+        final TreeNode root = CommonUtil.buildTree(new Integer[]{1,null,3});
+        System.out.println(rightSideView(root));
+    }
+
+    /**
+     * 2节点的最长路径。 其实就是最长的深度+1; left + right+ 1;
+     *
+     * @param root
+     * @return
+     */
+    int ans;
+    public int diameterOfBinaryTree(TreeNode root) {
+        ans = 1;
+        depth(root);
+        return ans - 1;
+    }
+    public int depth(TreeNode node) {
+        if (node == null) {
+            return 0; // 访问到空节点了，返回0
+        }
+        int L = depth(node.left);
+        int R = depth(node.right);
+        ans = Math.max(ans, L+R+1);
+        return Math.max(L, R) + 1;
     }
 
 }

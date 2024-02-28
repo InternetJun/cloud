@@ -1167,4 +1167,94 @@ public class Hot100 {
         }
         return res;
     }
+
+    /**
+     * 对字母异位处理。
+     * <p>
+     *     1，对字符串的个数统计。<br>
+     *     2，依次进行计算?
+     *     用的还是滑动窗口，
+     * </p>
+     *
+     * @param s
+     * @param p
+     * @return
+     */
+    public List<Integer> findAnagrams(String s, String p) {
+        Map<Character, Integer> need = new HashMap<>();
+        Map<Character, Integer> window = new HashMap<>();
+        for (char c : p.toCharArray()) {
+            need.put(c, need.getOrDefault(c, 0) + 1);
+        }
+
+        int left = 0, right = 0;
+        int valid = 0;
+        List<Integer> res = new ArrayList<>();
+        while (right < s.length()) {
+            char c = s.charAt(right);
+            right++;
+            // 有值。说明了？
+            if (need.containsKey(c)) {
+                window.put(c, window.getOrDefault(c, 0)+1);
+                if (window.get(c).equals(need.get(c))) {
+                    valid++;
+                }
+            }
+            // 判断收缩的条件是什么？
+            while (right - left >= p.length()) {
+                if (valid == need.size()) {
+                    res.add(left);
+                }
+                char d = s.charAt(left);
+                left++;
+                if (need.containsKey(d)) {
+                    if (window.get(d).equals(need.get(d))) {
+                        valid--;
+                    }
+                    window.put(d, window.get(d)-1);
+                }
+            }
+
+        }
+        return res;
+    }
+
+    public String minWindow1001(String s, String t) {
+        String res = "";
+        Map<Character, Integer> need = new HashMap<>();
+        Map<Character, Integer> windows = new HashMap<>();
+        for (char c : t.toCharArray()) {
+            need.put(c, need.getOrDefault(c, 0) + 1);
+        }
+        int left = 0, right = 0, len = Integer.MAX_VALUE, start = 0;
+        int valid = 0;
+        // 左右指针的移动。
+        while (right < s.length()) {
+            char c = s.charAt(right);
+            right++;
+            if (windows.containsKey(c)) {
+                windows.put(c, windows.getOrDefault(c,0) + 1);
+                if (windows.get(c).equals(need.get(c))) {
+                    valid++;
+                }
+            }
+
+            while (valid == need.size()) {
+                if (right - left < len) {
+                    start = left;
+                    len = right - left;
+                }
+                char d = s.charAt(left);
+                left++;
+                if (need.containsKey(d)) {
+                    if (windows.get(d).equals(need.get(d))) {
+                        valid--;
+                    }
+                    windows.put(d, windows.get(d) - 1);
+                }
+            }
+
+        }
+        return len == Integer.MAX_VALUE ? "" : s.substring(start, start + len);
+    }
 }

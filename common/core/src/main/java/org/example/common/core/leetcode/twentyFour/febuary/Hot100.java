@@ -1029,4 +1029,133 @@ public class Hot100 {
         return Math.max(L, R) + 1;
     }
 
+//    /**
+//     * 8分的代码。没有使用原始的字符。
+//     * @param s
+//     * @return
+//     */
+//    public boolean isTrue(String s) {
+//        // 小写的处理。还有要去除空格的因素。
+//        String ss = s.toLowerCase().replace(" ", "");
+//        int left = 0, right = s.length()-1;
+//        while (left <= right) {
+//            char leftC = ss.charAt(left);
+//
+//            char leftR = ss.charAt(right);
+//            if (leftC != leftR) {
+//                return false;
+//            }
+//            left++;
+//            right--;
+//        }
+//        return true;
+//    }
+//
+//    public int[] sumIndex(int[] nums, int target) {
+//        Map<Integer, Integer> map = new HashMap<>();
+//        int[] res = new int[2];
+//        int len = nums.length;
+//        for (int i = 0; i < len; i++) {
+//            map.put(nums[i], i);
+//        }
+//        for (int i = 0; i < len; i++) {
+//            if (map.containsKey(target - nums[i])) {
+//                res[0] = map.get(target - nums[i]);
+//                res[1] = map.get(i);
+//            }
+//        }
+//        return res;
+//    }
+//
+//    public int longestConsecutive0228(int[] nums) {
+//        Set set = new HashSet<Integer>();
+//        int res = Integer.MIN_VALUE;
+//        for(int i = 0; i < nums.length; i++) {
+//            set.add(nums[i]);
+//        }
+//
+//        for(int i = 0; i < nums.length; i++) {
+//            int curNum;
+//            int currentCount = 1;
+//            if (!set.contains(nums[i]+1)) {
+//                continue;
+//            }
+//            curNum = nums[i];
+//            while (set.contains(curNum + 1)) {
+//                //从开始到结束。
+//                currentCount++;
+//                curNum++;
+//            }
+//            res = Math.max(res, currentCount);
+//        }
+//
+//        return res;
+//    }
+//
+//    @Test
+//    public void test0228() {
+//        int[]  num ={100,4,200,1,3,2};
+//        System.out.println(longestConsecutive0228(num));
+//    }
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        // n 为 3，从 nums[0] 开始计算和为 0 的三元组
+        return nSumTarget(nums, 3, 0, 0);
+    }
+
+    /* 注意：调用这个函数之前一定要先给 nums 排序 */
+    // n 填写想求的是几数之和，start 从哪个索引开始计算（一般填 0），target 填想凑出的目标和
+    public List<List<Integer>> nSumTarget(
+            int[] nums, int n, int start, int target) {
+
+        int sz = nums.length;
+        List<List<Integer>> res = new ArrayList<>();
+        // 至少是 2Sum，且数组大小不应该小于 n
+        if (n < 2 || sz < n) {
+            return res;
+        }
+        // 2Sum 是 base case
+        if (n == 2) {
+            // 双指针那一套操作
+            int lo = start, hi = sz - 1;
+            while (lo < hi) {
+                int sum = nums[lo] + nums[hi];
+                int left = nums[lo], right = nums[hi];
+                if (sum < target) {
+                    while (lo < hi && nums[lo] == left) {
+                        lo++;
+                    }
+                } else if (sum > target) {
+                    while (lo < hi && nums[hi] == right) {
+                        hi--;
+                    }
+                } else {
+                    res.add(new ArrayList<>(Arrays.asList(left, right)));
+                    while (lo < hi && nums[lo] == left) {
+                        lo++;
+                    }
+                    while (lo < hi && nums[hi] == right) {
+                        hi--;
+                    }
+                }
+            }
+        } else {
+            // n > 2 时，递归计算 (n-1)Sum 的结果
+            for (int i = start; i < sz; i++) {
+                List<List<Integer>>
+                        sub = nSumTarget(nums, n - 1, i + 1, target - nums[i]);
+                for (List<Integer> arr : sub) {
+                    // (n-1)Sum 加上 nums[i] 就是 nSum
+                    arr.add(nums[i]);
+                    res.add(arr);
+                }
+                // 一个剪枝的操作。
+                while (i < sz - 1 && nums[i] == nums[i + 1]) {
+                    i++;
+                }
+            }
+        }
+        return res;
+    }
 }

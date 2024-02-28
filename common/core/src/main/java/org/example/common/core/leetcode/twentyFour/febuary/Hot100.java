@@ -325,21 +325,30 @@ public class Hot100 {
         }
         final int[] res = new int[nums.length - k + 1];
         int len = nums.length;
-        int left = 0, preSum = 0;
-//        MonotonicQueue window = new MonotonicQueue();
-        while (left < len - k) {
-            if (left == 0) {
-                for (int i = left; i < k + left; i++) {
-                    preSum += nums[i];
+        // 倒序，加上多一个信息，这时可以处理
+        final PriorityQueue<int[]> priorityQueue = new PriorityQueue(
+                (Comparator<int[]>) (pair1, pair2) -> {
+                    // 降序处理数据。
+                    return pair1[0] != pair2[0] ? pair2[0] - pair1[0] : pair2[1] - pair1[1];
                 }
-            } else {
-                // 要的是每个窗口中的最大值。
-                log.info("preSum:{}, left:{},right:{}", preSum, nums[left - 1], nums[left + k - 1]);
-                preSum = preSum - nums[left - 1] + nums[left + k - 1];
+        );
+        for (int i = 0; i < k; i++) {
+            priorityQueue.add(new int[]{nums[i], i});
+        }
+        // 3 1 -1
+        res[0] = priorityQueue.peek()[0];
+        for (int i = k; i < nums.length; i++) {
+            priorityQueue.offer(new int[]{nums[i], i});
+            // 最大值是peek();还有的是 3 - k
+            priorityQueue.stream().forEach(m->{
+                System.out.println(Arrays.toString(m));
+            });
+            log.info("{}",i-k);
+            // 就是说最大的值是否在范围内，没有就出去罗。不好理解吗？
+            while (priorityQueue.peek()[1] <= i - k) {
+                priorityQueue.poll();
             }
-            // 在移动时候判断
-            res[left] = preSum;
-            left++;
+            res[i-k+1] = priorityQueue.peek()[0];
         }
         return res;
     }

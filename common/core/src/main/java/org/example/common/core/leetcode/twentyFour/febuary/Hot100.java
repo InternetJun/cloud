@@ -1195,7 +1195,7 @@ public class Hot100 {
             right++;
             // 有值。说明了？
             if (need.containsKey(c)) {
-                window.put(c, window.getOrDefault(c, 0)+1);
+                window.put(c, window.getOrDefault(c, 0) + 1);
                 if (window.get(c).equals(need.get(c))) {
                     valid++;
                 }
@@ -1203,6 +1203,8 @@ public class Hot100 {
             // 判断收缩的条件是什么？
             while (right - left >= p.length()) {
                 if (valid == need.size()) {
+                    // 对left,right 的值都列出来。
+                    log.info("{}", s.substring(left, right));
                     res.add(left);
                 }
                 char d = s.charAt(left);
@@ -1211,12 +1213,20 @@ public class Hot100 {
                     if (window.get(d).equals(need.get(d))) {
                         valid--;
                     }
-                    window.put(d, window.get(d)-1);
+                    window.put(d, window.get(d) - 1);
                 }
             }
 
         }
         return res;
+    }
+
+    @Test
+    public void testString() {
+//        String s = "cbaebabacd", p = "abc";
+        String s = "abab", p = "ab";
+//        String s = "", p = "";
+        System.out.println(findAnagrams(s, p));
     }
 
     public String minWindow1001(String s, String t) {
@@ -1233,7 +1243,7 @@ public class Hot100 {
             char c = s.charAt(right);
             right++;
             if (windows.containsKey(c)) {
-                windows.put(c, windows.getOrDefault(c,0) + 1);
+                windows.put(c, windows.getOrDefault(c, 0) + 1);
                 if (windows.get(c).equals(need.get(c))) {
                     valid++;
                 }
@@ -1256,5 +1266,53 @@ public class Hot100 {
 
         }
         return len == Integer.MAX_VALUE ? "" : s.substring(start, start + len);
+    }
+
+    /**
+     * 获取链表是否有环形
+     * <p>
+     *     用什么条件来进行中止呢？
+     * </p>
+     *
+     * @param head
+     * @return
+     */
+    public boolean hasCircle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        // fast 遇到空了，说明了
+        while (fast != null && fast.next != null) {
+            if (fast == slow) {
+                return true;
+            }
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return false;
+    }
+
+    public ListNode deleteCycle(ListNode head) {
+        ListNode fast, slow;
+        fast = slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                break;
+            }
+        }
+        // 上面的代码类似 hasCycle 函数
+        if (fast == null || fast.next == null) {
+            // fast 遇到空指针说明没有环
+            return null;
+        }
+        // 重新指向头结点
+        slow = head;
+    // 快慢指针同步前进，相交点就是环起点
+        while (slow != fast) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow;
     }
 }

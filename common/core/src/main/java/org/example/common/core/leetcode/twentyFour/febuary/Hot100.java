@@ -1372,4 +1372,170 @@ public class Hot100 {
         }
         return dummyHead.next;
     }
+
+    /**
+     * 对num的数组进行构建树。
+     *
+     * @param nums
+     * @return
+     */
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return null;
+    }
+
+    @Test
+    public void testTree() {
+        sortedArrayToBST(new int[]{-10,-3,0,5,9});
+    }
+
+    /**
+     * 左右节点值的交换。可以
+     *
+     * @param root
+     * @return
+     */
+    public TreeNode invertTree(TreeNode root) {
+
+        if(root == null || (root.left == null && root.right == null)) {
+            return root;
+        }
+
+        // root.left = root.right || left.left = right.right
+        final TreeNode left = invertTree(root.left);
+        final TreeNode right = invertTree(root.right);
+        root.left = right;
+        root.right = left;
+        return root;
+    }
+
+    /**
+     *  <p>
+     *      对课程的学习，必须有一个先后的顺序。判断是否是可以有count == dfs的数据。
+     *      用的是一个union-find的环计算。equals（count）？？
+     *  </p>
+     *
+     * @param numCourses
+     * @param prerequisites
+     * @return
+     */
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        UnionFind unionFind = new UnionFind(numCourses);
+        for (int[] prerequisite : prerequisites) {
+            unionFind.union(prerequisite[0], prerequisite[1]);
+        }
+        log.info("{}", unionFind.parent);
+        return unionFind.getCount() == numCourses;
+    }
+
+    public boolean canFinish0229(int numCourses, int[][] prerequisites){
+        int count = 0;
+        return count == numCourses;
+    }
+
+    void dfs(int parent, int[][] prerequisites, boolean[] used, int count) {
+        // 基本的条件是什么？可以退出呢？
+        int countUsed = 0;
+        for (int i = 0; i < used.length; i++) {
+            if (used[i]) {
+                countUsed++;
+            }
+        }
+        if (countUsed == used.length) {
+            return;
+        }
+        for (int[] prerequisite : prerequisites) {
+            int p = prerequisite[0];
+            int next = prerequisite[1];
+            // 肯定是会有的。
+            if (parent == p) {
+                if (used[parent]) {
+                    break;
+                }
+                used[parent] = true;
+                dfs(next, prerequisites, used, ++count);
+                used[parent] = false;
+            }
+        }
+    }
+
+    public boolean canFinishSolution(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> adjacency = new ArrayList<>();
+        for(int i = 0; i < numCourses; i++) {
+            adjacency.add(new ArrayList<>());
+        }
+        int[] flags = new int[numCourses];
+        for(int[] cp : prerequisites) {
+            adjacency.get(cp[1]).add(cp[0]);
+        }
+        for(int i = 0; i < numCourses; i++) {
+            if(!dfs(adjacency, flags, i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean dfs(List<List<Integer>> adjacency, int[] flags, int i) {
+        if(flags[i] == 1) {
+            return false;
+        }
+        if(flags[i] == -1) {
+            return true;
+        }
+        flags[i] = 1;
+        for(Integer j : adjacency.get(i)) {
+            if(!dfs(adjacency, flags, j)) {
+                return false;
+            }
+        }
+        flags[i] = -1;
+        return true;
+    }
+
+
+    @Test
+    public void testCan() {
+        // numCourses = 2, prerequisites = [[1,0]]
+        System.out.println(canFinish(2, new int[][]{{0, 1}, {1, 0}}));
+//        System.out.println(canFinish(2, new int[][]{{0, 1}}));
+    }
+
+    // unionFind 一个圈内的数据。
+    private class UnionFind {
+
+        private int[] parent;
+
+        private int count;
+
+        public int getCount() {
+            return count;
+        }
+
+        public UnionFind(int n) {
+            this.count = n;
+            this.parent = new int[n];
+            for (int i = 0; i < n; i++) {
+                parent[i] = i;
+            }
+        }
+
+        public int find(int x) {
+            while (x != parent[x]) {
+                parent[x] = parent[parent[x]];
+                x = parent[x];
+            }
+            return x;
+        }
+
+        public void union(int x, int y) {
+            int rootX = find(x);
+            int rootY = find(y);
+            log.info("{}：{}；{}:{}", x, y, rootX, rootY);
+            if (rootX == rootY) {
+                return;
+            }
+
+            parent[rootX] = rootY;
+            count--;
+        }
+    }
 }

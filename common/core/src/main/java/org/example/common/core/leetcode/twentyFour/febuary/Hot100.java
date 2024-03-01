@@ -1572,4 +1572,66 @@ public class Hot100 {
                 inOrder, index + 1, inEnd);
         return root;
     }
+
+    /**
+     * 首先获取到所有的切割位置。还有的是什么呢?
+     *
+     * @param s
+     * @return
+     */
+    public List<List<String>> partition(String s) {
+        final ArrayList<List<String>> list = new ArrayList<>();
+        // base
+        List<String> temp = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            temp.add(s.charAt(i) + "");
+        }
+        list.add(temp);
+        // 进行一个分割。
+        return list;
+    }
+
+    /**
+     * 最小的编辑距离
+     * <p>定义是什么？可以进行一个建模
+     * dp[len1][len2] = ??
+     * 1.找出长度的差别。补全。
+     * 2.最长的公共子序列。
+     * </p>
+     *
+     * @param s1
+     * @param s2
+     * @return
+     */
+    public int minDistance(String s1, String s2) {
+        int m = s1.length(), n = s2.length();
+        int[][] dp = new int[m + 1][n + 1];
+        // base case
+        for (int i = 1; i <= m; i++) {
+            dp[i][0] = i;
+        }
+        for (int j = 1; j <= n; j++) {
+            dp[0][j] = j;
+        }
+        // 自底向上求解
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = min(
+                            dp[i - 1][j] + 1,
+                            dp[i][j - 1] + 1,
+                            dp[i - 1][j - 1] + 1
+                    );
+                }
+            }
+        }
+        // 储存着整个 s1 和 s2 的最小编辑距离
+        return dp[m][n];
+    }
+
+    int min(int a, int b, int c) {
+        return Math.min(a, Math.min(b, c));
+    }
 }

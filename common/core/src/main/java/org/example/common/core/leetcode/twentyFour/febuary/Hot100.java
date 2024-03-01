@@ -1486,6 +1486,7 @@ public class Hot100 {
             if(!dfs(adjacency, flags, j)) {
                 return false;
             }
+            log.info("此时的边是：{}", flags);
         }
         flags[i] = -1;
         return true;
@@ -1495,7 +1496,7 @@ public class Hot100 {
     @Test
     public void testCan() {
         // numCourses = 2, prerequisites = [[1,0]]
-        System.out.println(canFinish(2, new int[][]{{0, 1}, {1, 0}}));
+        System.out.println(canFinishSolution(2, new int[][]{{0, 1}/*, {1, 0}*/}));
 //        System.out.println(canFinish(2, new int[][]{{0, 1}}));
     }
 
@@ -1537,5 +1538,38 @@ public class Hot100 {
             parent[rootX] = rootY;
             count--;
         }
+    }
+
+    final HashMap<Integer, Integer> indexMap = new HashMap<>();
+
+    /**
+     * 前序和中序中复原树。
+     *
+     * @param preorder
+     * @param inorder
+     * @return
+     */
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        for (int i = 0; i < inorder.length; i++) {
+            indexMap.put(inorder[i], i);
+        }
+        return build(preorder, 0, preorder.length - 1,
+                inorder, 0, inorder.length);
+    }
+
+    TreeNode build(int[] preOrder, int preStart, int preEnd,
+                   int[] inOrder, int inStart, int inEnd) {
+        if (preStart > preEnd) {
+            return null;
+        }
+        int rootVal = preOrder[preStart];
+        int index = indexMap.get(rootVal);
+        TreeNode root = new TreeNode(rootVal);
+        int leftSize = index - inStart;
+        root.left = build(preOrder, preStart + 1, preStart + leftSize,
+                inOrder, inStart, index - 1);
+        root.right = build(preOrder, preStart + 1 + leftSize, preEnd,
+                inOrder, index + 1, inEnd);
+        return root;
     }
 }

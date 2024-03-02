@@ -184,7 +184,7 @@ public class Hot100 {
     public String LCSME(String str1, String str2) {
         int maxnum = 0;
         int finish = 0;
-        int[][] dp = new int[str1.length()+1][str2.length()+1];
+        int[][] dp = new int[str1.length() + 1][str2.length() + 1];
         dp[0][0] = 0;
         for (int i = 0; i < str1.length(); i++) {
             for (int j = 0; j < str2.length(); j++) {
@@ -194,7 +194,7 @@ public class Hot100 {
 //                        log.info("i:{},j:{}", i, j);
 //                        dp[i][j] = 1;
 //                    } else {
-                        dp[i+1][j+1] = dp[i][j] + 1;
+                    dp[i + 1][j + 1] = dp[i][j] + 1;
 //                    }
                 }
                 if (dp[i][j] > maxnum) {
@@ -366,15 +366,15 @@ public class Hot100 {
         for (int i = k; i < nums.length; i++) {
             priorityQueue.offer(new int[]{nums[i], i});
             // 最大值是peek();还有的是 3 - k
-            priorityQueue.stream().forEach(m->{
+            priorityQueue.stream().forEach(m -> {
                 System.out.println(Arrays.toString(m));
             });
-            log.info("{}",i-k);
+            log.info("{}", i - k);
             // 就是说最大的值是否在范围内，没有就出去罗。不好理解吗？
             while (priorityQueue.peek()[1] <= i - k) {
                 priorityQueue.poll();
             }
-            res[i-k+1] = priorityQueue.peek()[0];
+            res[i - k + 1] = priorityQueue.peek()[0];
         }
         return res;
     }
@@ -613,16 +613,19 @@ public class Hot100 {
 
     @Test
     public void testSumTree() {
-        final TreeNode root = CommonUtil.buildTree(new Integer[]{5,4,8,11,null,13,4,7,2,null,null,5,1});
+        final TreeNode root = CommonUtil.buildTree(new Integer[]{5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1});
         final List<List<Integer>> lists = pathSumRecord(root, 22);
         log.info("总路径的条是：{}", res);
     }
+
     LinkedList<List<Integer>> res = new LinkedList<>();
     LinkedList<Integer> path = new LinkedList<>();
+
     public List<List<Integer>> pathSumRecord(TreeNode root, int targetSum) {
         recur(root, targetSum);
         return res;
     }
+
     void recur(TreeNode root, int tar) {
         if (root == null) {
             return;
@@ -757,7 +760,7 @@ public class Hot100 {
     }
 
     @Test
-    public void main(){
+    public void main() {
         final List<Integer> list = Arrays.asList(1, 2, 3, 3, 4);
         System.out.println(binarySearch(list, 3));
     }
@@ -809,7 +812,7 @@ public class Hot100 {
                 if (!left.isEmpty() && leftOf(c) == left.peek()) {
                     left.pop();
                 } else
-                    // 和最近的左括号不匹配
+                // 和最近的左括号不匹配
                 {
                     return false;
                 }
@@ -830,6 +833,7 @@ public class Hot100 {
 
     /**
      * 通过率65/85；
+     *
      * @param root
      * @return
      */
@@ -872,8 +876,9 @@ public class Hot100 {
     /**
      * 获取到第k个数。
      * <p>
-     *  思路是左右数的二叉遍历吧。
+     * 思路是左右数的二叉遍历吧。
      * </p>
+     *
      * @param root
      * @param k
      * @return
@@ -888,6 +893,7 @@ public class Hot100 {
     int result = 0;
     // 记录当前元素的排名
     int rank = 0;
+
     void traverse(TreeNode root, int k) {
         if (root == null) {
             return;
@@ -985,9 +991,9 @@ public class Hot100 {
             return n > 1;
         }
         //只需判断一个数能否被小于sqrt(n)的奇数整除
-        int sqrt = (int)Math.sqrt(n);
+        int sqrt = (int) Math.sqrt(n);
         for (int i = 3; i <= sqrt; i += 2) {
-            if(n % 2 == 0 || n % i == 0) {
+            if (n % 2 == 0 || n % i == 0) {
                 return false;
             }
         }
@@ -997,9 +1003,9 @@ public class Hot100 {
     /**
      * 获取到右视图的数据。
      * <p>
-     *     思路是什么？每一层的最后一个节点。怎么判断是最后一个节点呢？
-     *     1
-     *   2  3
+     * 思路是什么？每一层的最后一个节点。怎么判断是最后一个节点呢？
+     * 1
+     * 2  3
      * 5
      * </p>
      *
@@ -1027,7 +1033,7 @@ public class Hot100 {
                     queue.add(poll.right);
                 }
             }
-            list.add(temp.get(temp.size()-1));
+            list.add(temp.get(temp.size() - 1));
         }
         return list;
     }
@@ -1038,7 +1044,7 @@ public class Hot100 {
          * [1,null,3]
          * []
          */
-        final TreeNode root = CommonUtil.buildTree(new Integer[]{1,null,3});
+        final TreeNode root = CommonUtil.buildTree(new Integer[]{1, null, 3});
         System.out.println(rightSideView(root));
     }
 
@@ -1049,18 +1055,20 @@ public class Hot100 {
      * @return
      */
     int ans;
+
     public int diameterOfBinaryTree(TreeNode root) {
         ans = 1;
         depth(root);
         return ans - 1;
     }
+
     public int depth(TreeNode node) {
         if (node == null) {
             return 0; // 访问到空节点了，返回0
         }
         int L = depth(node.left);
         int R = depth(node.right);
-        ans = Math.max(ans, L+R+1);
+        ans = Math.max(ans, L + R + 1);
         return Math.max(L, R) + 1;
     }
 
@@ -1197,9 +1205,9 @@ public class Hot100 {
     /**
      * 对字母异位处理。
      * <p>
-     *     1，对字符串的个数统计。<br>
-     *     2，依次进行计算?
-     *     用的还是滑动窗口，
+     * 1，对字符串的个数统计。<br>
+     * 2，依次进行计算?
+     * 用的还是滑动窗口，
      * </p>
      *
      * @param s
@@ -1297,7 +1305,7 @@ public class Hot100 {
     /**
      * 获取链表是否有环形
      * <p>
-     *     用什么条件来进行中止呢？
+     * 用什么条件来进行中止呢？
      * </p>
      *
      * @param head
@@ -1334,7 +1342,7 @@ public class Hot100 {
         }
         // 重新指向头结点
         slow = head;
-    // 快慢指针同步前进，相交点就是环起点
+        // 快慢指针同步前进，相交点就是环起点
         while (slow != fast) {
             fast = fast.next;
             slow = slow.next;
@@ -1343,12 +1351,12 @@ public class Hot100 {
     }
 
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists== null || lists.length == 0) {
+        if (lists == null || lists.length == 0) {
             return null;
         }
         ListNode node = null;
         // 分支的算法。
-        int size = lists.length-1;
+        int size = lists.length - 1;
         return mergeHelper(lists, 0, size);
     }
 
@@ -1459,7 +1467,7 @@ public class Hot100 {
 
     @Test
     public void testTree() {
-        sortedArrayToBST(new int[]{-10,-3,0,5,9});
+        sortedArrayToBST(new int[]{-10, -3, 0, 5, 9});
     }
 
     /**
@@ -1470,7 +1478,7 @@ public class Hot100 {
      */
     public TreeNode invertTree(TreeNode root) {
 
-        if(root == null || (root.left == null && root.right == null)) {
+        if (root == null || (root.left == null && root.right == null)) {
             return root;
         }
 
@@ -1483,10 +1491,10 @@ public class Hot100 {
     }
 
     /**
-     *  <p>
-     *      对课程的学习，必须有一个先后的顺序。判断是否是可以有count == dfs的数据。
-     *      用的是一个union-find的环计算。equals（count）？？
-     *  </p>
+     * <p>
+     * 对课程的学习，必须有一个先后的顺序。判断是否是可以有count == dfs的数据。
+     * 用的是一个union-find的环计算。equals（count）？？
+     * </p>
      *
      * @param numCourses
      * @param prerequisites
@@ -1501,7 +1509,7 @@ public class Hot100 {
         return unionFind.getCount() == numCourses;
     }
 
-    public boolean canFinish0229(int numCourses, int[][] prerequisites){
+    public boolean canFinish0229(int numCourses, int[][] prerequisites) {
         int count = 0;
         return count == numCourses;
     }
@@ -1534,30 +1542,31 @@ public class Hot100 {
 
     public boolean canFinishSolution(int numCourses, int[][] prerequisites) {
         List<List<Integer>> adjacency = new ArrayList<>();
-        for(int i = 0; i < numCourses; i++) {
+        for (int i = 0; i < numCourses; i++) {
             adjacency.add(new ArrayList<>());
         }
         int[] flags = new int[numCourses];
-        for(int[] cp : prerequisites) {
+        for (int[] cp : prerequisites) {
             adjacency.get(cp[1]).add(cp[0]);
         }
-        for(int i = 0; i < numCourses; i++) {
-            if(!dfs(adjacency, flags, i)) {
+        for (int i = 0; i < numCourses; i++) {
+            if (!dfs(adjacency, flags, i)) {
                 return false;
             }
         }
         return true;
     }
+
     private boolean dfs(List<List<Integer>> adjacency, int[] flags, int i) {
-        if(flags[i] == 1) {
+        if (flags[i] == 1) {
             return false;
         }
-        if(flags[i] == -1) {
+        if (flags[i] == -1) {
             return true;
         }
         flags[i] = 1;
-        for(Integer j : adjacency.get(i)) {
-            if(!dfs(adjacency, flags, j)) {
+        for (Integer j : adjacency.get(i)) {
+            if (!dfs(adjacency, flags, j)) {
                 return false;
             }
             log.info("此时的边是：{}", flags);
@@ -1753,15 +1762,15 @@ public class Hot100 {
     /**
      * <p>
      * 我们结合样例来分析，假设样例为 [1,3,5,4,1]：
-     *
+     * <p>
      * 从后往前找，找到第一个下降的位置，记为 k。注意k 以后的位置是降序的。 在样例中就是找到 【3】
-     *
+     * <p>
      * 从 k 往后找，找到最小的比 k 要大的数。 找到 【4】
-     *
+     * <p>
      * 将两者交换。注意此时 k 以后的位置仍然是降序的。
-     *
+     * <p>
      * 直接将 k 以后的部分翻转（变为升序）。
-
+     *
      * </p>
      *
      * @param nums
@@ -1782,6 +1791,7 @@ public class Hot100 {
             reverse(nums, k, n - 1);
         }
     }
+
     void reverse(int[] nums, int a, int b) {
         int l = a, r = b;
         while (l < r) {
@@ -1796,23 +1806,124 @@ public class Hot100 {
      * @param str2
      * @return
      */
-    public String LCSMe (String str1, String str2) {
+    public String LCSMe(String str1, String str2) {
         // write code here
         int len1 = str1.length();
         int len2 = str2.length();
         int left = 0, len = Integer.MIN_VALUE;
-        for(int i = 0; i < len1; i++) {
+        for (int i = 0; i < len1; i++) {
             int tempLen = 0;
-            for(int j = 0; j < len2; j++) {
-                if(str1.charAt(i) == str2.charAt(j)) {
+            for (int j = 0; j < len2; j++) {
+                if (str1.charAt(i) == str2.charAt(j)) {
                     tempLen++;
                 }
             }
-            if(tempLen > len) {
+            if (tempLen > len) {
                 len = tempLen;
                 left = i;
             }
         }
-        return str1.substring(left, left+len);
+        return str1.substring(left, left + len);
+    }
+
+    /**
+     * 对字符串的拼接实现。
+     *
+     * @param str
+     * @return
+     */
+    public ArrayList<String> Permutation(String str) {
+        // write code here
+        if (str == null || str.length() == 0) {
+            return new ArrayList<>();
+        }
+        for (int s = 0; s < str.length(); s++) {
+            final StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(str.charAt(s));
+            final boolean[] used = new boolean[str.length()];
+            used[s] = true;
+            dfsCombine(str, stringBuilder, used);
+        }
+        return resPermutation;
+    }
+
+    ArrayList<String> resPermutation = new ArrayList<String>();
+
+    /**
+     * 一个组合
+     *
+     * @param s
+     * @param choose
+     * @param used
+     */
+    public void dfsCombine(String s, StringBuilder choose, boolean[] used) {
+        if (choose.length() == s.length()) {
+            if (!resPermutation.contains(choose.toString())) {
+                resPermutation.add(choose.toString());
+            }
+        }
+
+        for (int i = 0; i < s.length(); i++) {
+//            if(i > 0 && s[i - 1] == str[i] && !vis[i - 1])
+//                //当前的元素str[i]与同一层的前一个元素str[i-1]相同且str[i-1]已经用过了
+//                continue;
+            if (!used[i]) {
+                choose.append(s.charAt(i));
+                used[i] = true;
+                dfsCombine(s, choose, used);
+                choose.deleteCharAt(choose.length() - 1);
+                used[i] = false;
+            }
+        }
+    }
+
+    public void recursion(ArrayList<String> res, char[] str, StringBuffer temp, boolean[] vis){
+        //临时字符串满了加入输出
+        if(temp.length() == str.length){
+            res.add(new String(temp));
+            return;
+        }
+        //遍历所有元素选取一个加入
+        for(int i = 0; i < str.length; i++){
+            //如果该元素已经被加入了则不需要再加入了
+            if(vis[i]) {
+                continue;
+            }
+            //当前的元素str[i]与同一层的前一个元素str[i-1]相同且str[i-1]已经用过了
+            if(i > 0 && str[i - 1] == str[i] && !vis[i - 1]) {
+                continue;
+            }
+            //标记为使用过
+            vis[i] = true;
+            //加入临时字符串
+            temp.append(str[i]);
+            recursion(res, str, temp, vis);
+            //回溯
+            vis[i] = false;
+            temp.deleteCharAt(temp.length() - 1);
+        }
+    }
+
+    public ArrayList<String> PermutationSolution(String str) {
+        ArrayList<String> res = new ArrayList<String>();
+        if(str == null || str.length() == 0) {
+            return res;
+        }
+        //转字符数组
+        char[] charStr = str.toCharArray();
+        // 按字典序排序
+        Arrays.sort(charStr);
+        boolean[] vis = new boolean[str.length()];
+        //标记每个位置的字符是否被使用过
+        Arrays.fill(vis, false);
+        StringBuffer temp = new StringBuffer();
+        //递归获取
+        recursion(res, charStr, temp, vis);
+        return res;
+    }
+
+    @Test
+    public void testPer() {
+        System.out.println(Permutation("aab"));
     }
 }

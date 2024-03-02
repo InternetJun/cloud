@@ -146,6 +146,80 @@ public class Hot100 {
     }
 
     /**
+     * 最长公共字串
+     *
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public String LCS(String str1, String str2) {
+        int maxnum = 0;
+        int finish = 0;
+        int[][] dp = new int[str1.length()][str2.length()];
+        for (int i = 0; i < str1.length(); i++) {
+            for (int j = 0; j < str2.length(); j++) {
+                if (str1.charAt(i) == str2.charAt(j)) {
+                    // 这可以表达出是一个有用的处理。可以不为
+                    if (i == 0 || j == 0) {
+                        log.info("i:{},j:{}", i, j);
+                        dp[i][j] = 1;
+                    } else {
+                        dp[i][j] = dp[i - 1][j - 1] + 1;
+                    }
+                }
+                if (dp[i][j] > maxnum) {
+                    maxnum = dp[i][j];
+                    finish = i;
+                    log.info("finish的值是：{}", finish);
+                }
+            }
+        }
+        CommonUtil.formatAndDisplayArray(dp);
+        if (maxnum == 0) {
+            return "-1";
+        }
+        return str1.substring(finish + 1 - maxnum, finish + 1);
+    }
+
+    public String LCSME(String str1, String str2) {
+        int maxnum = 0;
+        int finish = 0;
+        int[][] dp = new int[str1.length()+1][str2.length()+1];
+        dp[0][0] = 0;
+        for (int i = 0; i < str1.length(); i++) {
+            for (int j = 0; j < str2.length(); j++) {
+                if (str1.charAt(i) == str2.charAt(j)) {
+                    // 这可以表达出是一个有用的处理。可以不为
+//                    if (i == 0 || j == 0) {
+//                        log.info("i:{},j:{}", i, j);
+//                        dp[i][j] = 1;
+//                    } else {
+                        dp[i+1][j+1] = dp[i][j] + 1;
+//                    }
+                }
+                if (dp[i][j] > maxnum) {
+                    maxnum = dp[i][j];
+                    finish = i - 1;
+                    log.info("finish的值是：{}", finish);
+                }
+            }
+        }
+        CommonUtil.formatAndDisplayArray(dp);
+        if (maxnum == 0) {
+            return "-1";
+        }
+        return str1.substring(finish + 1 - maxnum, finish + 1);
+    }
+
+    @Test
+    public void testLCS() {
+        //"1AB2345CD","12345EF"
+        String s = "1AB2345CD";
+        String s1 = "12345EF";
+        System.out.println(LCS(s, s1));
+    }
+
+    /**
      * 获取最长的无重复的字符长度。
      *
      * @param s
@@ -1713,5 +1787,32 @@ public class Hot100 {
         while (l < r) {
             swap(nums, l++, r--);
         }
+    }
+
+    /**
+     * 最长的公共字串、序列
+     *
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public String LCSMe (String str1, String str2) {
+        // write code here
+        int len1 = str1.length();
+        int len2 = str2.length();
+        int left = 0, len = Integer.MIN_VALUE;
+        for(int i = 0; i < len1; i++) {
+            int tempLen = 0;
+            for(int j = 0; j < len2; j++) {
+                if(str1.charAt(i) == str2.charAt(j)) {
+                    tempLen++;
+                }
+            }
+            if(tempLen > len) {
+                len = tempLen;
+                left = i;
+            }
+        }
+        return str1.substring(left, left+len);
     }
 }

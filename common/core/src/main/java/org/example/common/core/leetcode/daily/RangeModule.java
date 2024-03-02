@@ -1,5 +1,6 @@
 package org.example.common.core.leetcode.daily;
 
+import cn.hutool.socket.protocol.MsgDecoder;
 import org.junit.Test;
 
 import java.util.*;
@@ -102,5 +103,58 @@ public class RangeModule {
         int[][] ints= {{1,3}, {6,9}};
         int[] newI = {2, 5};
         insert(ints, newI);
+    }
+
+    // [[10,30],[20,60],[80,100],[150,180]]
+    // [[10,60],[80,100],[150,180]]
+
+    public ArrayList<Interval> merge(ArrayList<Interval> intervals) {
+        ArrayList<Interval> res = new ArrayList<>();
+        Collections.sort(intervals,(a,b)->a.start-b.start);
+        int len = intervals.size();
+        int i = 0;
+        while (i < len) {
+            int left = intervals.get(i).start;
+            int right = intervals.get(i).end;
+            while (i < len-1 && intervals.get(i+1).start <= right) {
+                right = Math.max(right,intervals.get(i+1).end);
+                i++;
+            }
+            res.add(new Interval(left,right));
+            i++;
+        }
+        return res;
+    }
+
+    /**
+     * 进一步的优化了，不是一步步的走了，而是一个跳跃式的有记忆化的获取先前的值。
+     *
+     * @param intervals
+     * @return
+     */
+    public ArrayList<Interval> mergeTwoPoint(ArrayList<Interval> intervals) {
+        ArrayList<Interval> res = new ArrayList<>();
+        Collections.sort(intervals, Comparator.comparingInt(a -> a.start));
+        int len = intervals.size();
+        int start = 0;
+        while (start < len) {
+            int end = start + 1;
+            while (end < len && intervals.get(end).start <= intervals.get(start).end) {
+                intervals.get(start).end = Math.max(intervals.get(start).end, intervals.get(end).end);
+                end++;
+            }
+            res.add(intervals.get(start));
+            start = end;
+        }
+        return res;
+    }
+
+    public class Interval {
+      int start;
+      int end;
+      public Interval(int start, int end) {
+        this.start = start;
+        this.end = end;
+      }
     }
 }

@@ -8,9 +8,6 @@ import org.example.common.core.util.CommonUtil;
 import org.junit.Test;
 
 import java.util.*;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedTransferQueue;
 
 /**
  * @Author: lejun
@@ -1925,5 +1922,90 @@ public class Hot100 {
     @Test
     public void testPer() {
         System.out.println(Permutation("aab"));
+        Integer[] left = {1,null,2};
+        final List<Integer> ints = Arrays.asList(left);
+        System.out.println(ints);
+    }
+
+    // 递归处理有重复的数字问题。
+    public ArrayList<ArrayList<Integer>> permuteUnique(int[] num) {
+        // write code here 首先要的是一个排序，在一起可以剪枝的。
+        Arrays.sort(num);
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        boolean[] used = new boolean[num.length];
+        dfsNum(list, num, used, new ArrayList<Integer>());
+        return list;
+    }
+
+    @Test
+    public void testNum() {
+        int[] num = {1, 1, 2};
+        System.out.println(permuteUnique(num));
+    }
+
+    /**
+     * 进行处理了。
+     *
+     * @param list
+     * @param num
+     * @param used
+     * @param temp
+     */
+    private void dfsNum(ArrayList<ArrayList<Integer>> list, int[] num, boolean[] used, ArrayList<Integer> temp) {
+        if (temp.size() == num.length) {
+            log.info("{}", temp);
+            list.add(new ArrayList<>(temp));
+            return;
+        }
+        for (int i = 0; i < num.length; i++) {
+            if (used[i]) {
+                continue;
+            }
+            // 这里的是什么意思？ 只有在 2 已经被使用的情况下其他的2元素才会被选择，同理，2'' 只有在 2' 已经被使用的情况下才会被选择，这就保证了相同元素在排列中的相对位置保证固定。
+            /**
+             * 子集的时候。只要有num[i - 1] == num[i]就可以跳过。
+             * 组合的化需要被使用才会被选择。是有一个差别。就是说！used[i-1]需要有跳过的操作。
+             */
+            if (i > 0 && num[i - 1] == num[i] && !used[i - 1]) {
+                continue;
+            }
+            used[i] = true;
+            temp.add(num[i]);
+            dfsNum(list, num, used, temp);
+            used[i] = false;
+            temp.remove(temp.size() - 1);
+        }
+    }
+
+    List<List<Integer>> resSubset = new LinkedList<>();
+    // 记录回溯算法的递归路径
+    LinkedList<Integer> track = new LinkedList<>();
+
+    // 主函数
+    public List<List<Integer>> subsets(int[] nums) {
+        backtrack(nums, 0);
+        return resSubset;
+    }
+
+    @Test
+    public void testSubset() {
+        System.out.println(subsets(new int[]{1, 2, 3}));
+    }
+
+    // 回溯算法核心函数，遍历子集问题的回溯树
+    void backtrack(int[] nums, int start) {
+
+        // 前序位置，每个节点的值都是一个子集
+        resSubset.add(new LinkedList<>(track));
+
+        // 回溯算法标准框架
+        for (int i = start; i < nums.length; i++) {
+            // 做选择
+            track.addLast(nums[i]);
+            // 通过 start 参数控制树枝的遍历，避免产生重复的子集
+            backtrack(nums, i + 1);
+            // 撤销选择
+            track.removeLast();
+        }
     }
 }

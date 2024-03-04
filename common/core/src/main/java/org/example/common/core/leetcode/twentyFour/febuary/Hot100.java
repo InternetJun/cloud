@@ -2062,5 +2062,101 @@ public class Hot100 {
     public void mainRob(){
         int[] nums = {1,2,3,4};
         System.out.println(rob(nums));
+        String str1 = "str";
+        String str2 = "ing";
+        String str3 = "str" + "ing";
+        String str4 = str1 + str2;
+        String str5 = "string";
+        /**
+         * System.out.println(str3 == str4);//false
+         * System.out.println(str3 == str5);//true
+         * System.out.println(str4 == str5);//false
+         */
+        System.out.println(str3.equals(str4));
+        System.out.println(str3.equals(str5));
+        System.out.println(str4.equals(str5));
+
+    }
+
+            public int maxArea (int[] height) {
+                if(height == null || height.length < 2) {
+                    return 0;
+                }
+                // write code here
+                int leftMax = Integer.MIN_VALUE, rightMax = Integer.MIN_VALUE;
+                int left = 0, right = height.length - 1;
+                int maxArea = Integer.MIN_VALUE;
+                while(left < right) {
+                    leftMax = Math.max(leftMax, height[left]);
+                    rightMax = Math.max(rightMax, height[right]);
+                    if(rightMax > leftMax) {
+                        maxArea = Math.max(leftMax * (right - left), maxArea);
+                        left++;
+                    } else{
+                        maxArea = Math.max(rightMax * (right - left), maxArea);
+                        right--;
+                    }
+                }
+                return maxArea;
+            }
+
+    @Test
+    public void mainArea() {
+        int[] height = {1,2};
+        System.out.println(maxArea(height));
+    }
+
+    class quickSolution {
+
+        private final Random random = new Random();
+
+        public int[] sortArray(int[] nums) {
+            quickSort(nums, 0, nums.length - 1);
+            return nums;
+        }
+
+        private void quickSort(int[] nums, int left, int right) {
+            //递归退出条件
+            if (left >= right) {
+                return;
+            }
+            //随机选取法
+            int RandomIndex = left + random.nextInt(right - left + 1);
+            swap(nums, left, RandomIndex);
+
+            int pivot = nums[left];
+            int less = left;
+            int more = right + 1;
+            // 循环不变量：这里是左闭右闭区间
+            // 小于nums[pivot]区间：[left + 1, less]
+            // 等于nums[pivot]区间：[less + 1, i]
+            // 大于nums[pivot]区间：[more, right]
+            int i = left + 1;
+            while (i < more) {
+                if (nums[i] < pivot) {
+                    less++;
+                    swap(nums, i, less);
+                    i++;
+                } else if (nums[i] == pivot) {
+                    i++;
+                } else {
+                    //这里不i++很重要！因为我们无法确定从尾部换来的元素是否小于nums[pivot]
+                    more--;
+                    swap(nums, i, more);
+                }
+            }
+            //less最后指向的一定是小于nums[pivot]的元素
+            swap(nums, left, less);
+            //同理more指向大于nums[pivot]的元素
+            quickSort(nums, left, less - 1);
+            quickSort(nums, more, right);
+        }
+
+
+        private void swap(int[] nums, int i, int j) {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
     }
 }

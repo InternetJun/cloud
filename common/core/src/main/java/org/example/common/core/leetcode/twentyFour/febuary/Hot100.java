@@ -2159,4 +2159,121 @@ public class Hot100 {
             nums[j] = temp;
         }
     }
+
+    @Test
+    public void testMain() {
+        Character c = '数';
+
+    }
+
+    /**
+     * 完全二叉树的定义：若二叉树的深度为 h，除第 h 层外，其它各层的结点数都达到最大个数，
+     * 第 h 层所有的叶子结点都连续集中在最左边，这就是完全二叉树。
+     * <p>
+     *     层数和节点的关系是什么？
+     *     第1层  -->   2^(1-1)
+     *     第2层  -->   2^(2-1)
+     *     第3层  -->   2^(3-1)
+     *     第1层  -->   1
+     *     只有最后一层可以不满足要求。所以有。boolean isEnd
+     * </p>
+     *
+     * @return
+     */
+    public boolean isCompleteTree(TreeNode root) {
+        final LinkedList<TreeNode> queue = new LinkedList<>();
+        int height = treeHeight(root);
+        queue.add(root);
+        int level = 1;
+        // 用什么来表示是height？
+        boolean flag = false;
+        while (!queue.isEmpty()) {
+            ArrayList<Integer> list = null;
+            if (height == level) {
+                list = new ArrayList<>();
+            }
+            int size = queue.size();
+            // 非叶子节点的判断。
+            if (height != level && levelCount(level) != size) {
+                return false;
+            }
+            // 叶子节点要是都在左侧，不能跳跃。
+            if (height == level) {
+                final int index = list.lastIndexOf(null);
+                for (int i = index+1; i < list.size(); i++) {
+                    if (list.get(i) != null) {
+                        return false;
+                    }
+                }
+            }
+            for (int i = 0; i < size; i++) {
+                final TreeNode poll = queue.poll();
+                if (poll.left != null) {
+                    queue.add(poll.left);
+                    list.add(poll.left.val);
+                } else {
+                    list.add(null);
+                }
+                if (poll.right != null) {
+                    queue.add(poll.right);
+                    list.add(poll.right.val);
+                } else {
+                    list.add(null);
+                }
+            }
+            level++;
+        }
+        return true;
+    }
+
+    public int treeHeight(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return Math.max(treeHeight(root.left), treeHeight(root.right))+1;
+    }
+
+    @Test
+    public void testHeight() {
+        final TreeNode treeNode = CommonUtil.buildTree(new Integer[]{1, 2, null, null, 6});
+        System.out.println(isCompleteTreeSolution(treeNode));
+    }
+
+    public int levelCount(int level) {
+        return (int) Math.pow(2, level - 1);
+    }
+
+    // write code here
+    //层序遍历，在队列里加null。完全二叉树当poll出null时，后面应该都是null
+    //非完全二叉树，poll出一个null后，后面还有非null元素
+
+    //层序遍历，需要加null进去判断（通常不用加null）
+    public boolean isCompleteTreeSolution (TreeNode root) {
+        // write code here
+        //层序遍历，在队列里加null。完全二叉树当poll出null时，后面应该都是null
+        //非完全二叉树，poll出一个null后，后面还有非null元素
+
+        //层序遍历，需要加null进去判断（通常不用加null）
+        if(root == null) return true;
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        boolean isLast = false;
+        while(!queue.isEmpty()){
+            TreeNode t = queue.poll();
+            //如果是完全二叉树，t应该一直为null，直到结束：上述的测试用例中，要是是一个完全的话，会一直poll。到queue isempty。
+            // 要不是完全的化。肯定会跳过这个判断，直达if（isLast）很棒的设计。
+            if(t == null){
+                isLast = true;
+                continue;
+            }
+            //非完全二叉树，出现null后又出现非null元素
+            if(isLast){
+                return false;
+            }
+            //加入的是t的左节点和右节点
+            queue.offer(t.left);
+            queue.offer(t.right);
+        }
+        return true;
+    }
 }

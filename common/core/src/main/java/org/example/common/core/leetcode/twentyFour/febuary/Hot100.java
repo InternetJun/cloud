@@ -1412,6 +1412,7 @@ public class Hot100 {
         if (head == null) {
             return head;
         }
+        // 这句判断直接是把链表切分开。（4,3）|| （2,1）
         if (head.next == tail) {
             head.next = null;
             return head;

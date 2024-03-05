@@ -2276,4 +2276,132 @@ public class Hot100 {
         }
         return true;
     }
+
+    /**
+     * 最短路径的算法。要有值的更新处理。
+     * <p>
+     *     1.确定最短的路径；
+     *     2.从开始到结尾的路径值更新；
+     *     3.计数值。
+     *     <b>用的是一个</b>
+     * </p>
+     *
+     * @param n
+     * @param roads
+     * @return
+     */
+    public int countPaths(int n, int[][] roads) {
+        int mod = 1000000007;
+        List<int[]>[] e = new List[n];
+        for (int i = 0; i < n; i++) {
+            e[i] = new ArrayList<int[]>();
+        }
+        for (int[] road : roads) {
+            int x = road[0], y = road[1], t = road[2];
+            e[x].add(new int[]{y, t});
+            e[y].add(new int[]{x, t});
+        }
+        // 记录下所有的距离.
+        long[] dis = new long[n];
+        Arrays.fill(dis, Long.MAX_VALUE);
+        // 所有的路径
+        int[] ways = new int[n];
+
+        PriorityQueue<long[]> pq = new PriorityQueue<long[]>(Comparator.comparingLong(a -> a[0]));
+        // 耗费的时间、节点
+        pq.offer(new long[]{0, 0});
+        dis[0] = 0;
+        ways[0] = 1;
+
+        while (!pq.isEmpty()) {
+            long[] arr = pq.poll();
+            long t = arr[0];
+            int u = (int) arr[1];
+            if (t > dis[u]) {
+                continue;
+            }
+            // 表示了这个点有多少个连接点，可以进行一个遍历。
+            for (int[] next : e[u]) {
+                int v = next[0], w = next[1];
+                log.info("next:{}, w:{}", v, w);
+                if (t + w < dis[v]) {
+                    // 获取到长度。
+                    dis[v] = t + w;
+                    // 为什么进行一个赋值操作？
+                    ways[v] = ways[u];
+                    pq.offer(new long[]{t + w, v});
+                } else if (t + w == dis[v]) {
+                    ways[v] = (ways[u] + ways[v]) % mod;
+                }
+            }
+        }
+        return ways[n - 1];
+    }
+
+    /**
+     * 图数据中最少的花费时间。
+     *
+     * @param n
+     * @param roads
+     * @return
+     */
+    public int minCost(int n, int[][] roads) {
+        // 首先要做的是对road进行一个排序操作。
+        for (int[] road : roads) {
+            int pre = road[0];
+            int next = road[1];
+            if (pre > next) {
+                int temp = next;
+                // 无法确认的
+                road[1] = road[0];
+                road[0] = temp;
+            }
+        }
+
+        log.info("{}", Arrays.deepToString(roads));
+        Map<Integer, List<int[]>> map = new HashMap<>();
+        for (int[] road : roads) {
+            int pre = road[0];
+            int next = road[1];
+            int cost = road[2];
+            final List<int[]> orDefault = map.getOrDefault(pre, new ArrayList<int[]>());
+            orDefault.add(new int[]{next, cost});
+            map.put(pre, orDefault);
+        }
+        log.info("{}", map);
+        int minCost = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            int[] road = roads[i];
+            int cost = road[2];
+            int pre = road[0];
+            int next = road[1];
+            for (int j = 0; j < n; j++) {
+                if (next == n-1) {
+                    minCost = Math.min(cost, minCost);
+                    break;
+                }
+                if (!map.containsKey(next)) {
+                    break;
+                }
+                //直到获取所有的值
+                while (next != n - 1) {
+                    final List<int[]> nextList = map.get(next);
+                    for (int[] tempCost : nextList) {
+                        next = tempCost[0];
+                        int itemCost = tempCost[1];
+                        cost += itemCost;
+                    }
+                    // 遍历值，获取到所有结果。
+                }
+                minCost = Math.min(cost, minCost);
+            }
+        }
+        return minCost;
+    }
+
+    @Test
+    public void mainCost() {
+        final int[][] ints = JSONObject.parseObject("[[0,6,7],[0,1,2],[1,2,3],[1,3,3],[6,3,3],[3,5,1],[6,5,1],[2,5,1],[0,4,5],[4,6,2]]", int[][].class);
+        countPaths(7, ints);
+    }
 }

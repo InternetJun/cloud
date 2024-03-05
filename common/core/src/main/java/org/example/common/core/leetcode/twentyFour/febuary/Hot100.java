@@ -2404,4 +2404,54 @@ public class Hot100 {
         final int[][] ints = JSONObject.parseObject("[[0,6,7],[0,1,2],[1,2,3],[1,3,3],[6,3,3],[3,5,1],[6,5,1],[2,5,1],[0,4,5],[4,6,2]]", int[][].class);
         countPaths(7, ints);
     }
+
+    /**
+     * 连续操作，+inf
+     *<p>
+     * dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
+     * dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
+     *             = max(dp[i-1][k][1], dp[i-1][k][0] - prices[i])
+     *
+     * 我们发现数组中的 k 已经不会改变了，也就是说不需要记录 k 这个状态了：
+     * dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+     * dp[i][1] = max(dp[i-1][1], dp[i-1][0] - prices[i])
+     *
+     *</p>
+     *
+     * @param prices
+     * @return
+     */
+    int maxProfit_k_inf(int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[n][2];
+        for (int i = 0; i < n; i++) {
+            if (i - 1 == -1) {
+                // base case
+                dp[i][0] = 0;
+                dp[i][1] = -prices[i];
+                continue;
+            }
+            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
+            // 和前面的有关，一个连续的子数组内容。
+            dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0] - prices[i]);
+        }
+        return dp[n - 1][0];
+    }
+
+    int maxProfit_k_1(int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[n][2];
+        for (int i = 0; i < n; i++) {
+            if (i - 1 == -1) {
+                // base case
+                dp[i][0] = 0;
+                dp[i][1] = -prices[i];
+                continue;
+            }
+            // 说明的是什么？一个序列。
+            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
+            dp[i][1] = Math.max(dp[i-1][1], -prices[i]);
+        }
+        return dp[n - 1][0];
+    }
 }

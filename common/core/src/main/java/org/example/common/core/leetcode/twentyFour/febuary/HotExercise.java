@@ -16,7 +16,7 @@ import java.util.*;
  * @time: 2024/2/21 21:29
  */
 @Slf4j
-public class Hot100 {
+public class HotExercise {
     /**
      * t:79
      *
@@ -2254,7 +2254,9 @@ public class Hot100 {
         //非完全二叉树，poll出一个null后，后面还有非null元素
 
         //层序遍历，需要加null进去判断（通常不用加null）
-        if(root == null) return true;
+        if(root == null) {
+            return true;
+        }
         LinkedList<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         boolean isLast = false;
@@ -2454,4 +2456,56 @@ public class Hot100 {
         }
         return dp[n - 1][0];
     }
+
+    // 最长的递增子序列。和productExceptSelf的左右子数组很像。
+    public int[] longLis(int[] arr) {
+        int[] left = new int[arr.length];
+        for(int i =1 ; i < arr.length ; i++){
+            left[i] = 1;
+            for(int j = 1 ; j < i ;j++){
+                if(arr[j] < arr[i]){
+                    left[i] = Math.max(left[i],left[j]+1);
+                }
+            }
+        }
+        return left;
+    }
+
+    public static int longestIncreasingSubstring(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int maxLength = 1;
+        int currentLength = 1;
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1]) {
+                currentLength++;
+                maxLength = Math.max(maxLength, currentLength);
+            } else {
+                currentLength = 1;
+            }
+        }
+
+        return maxLength;
+    }
+
+    // 最长的递增子串。
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNextLine()) {
+            int number = Integer.parseInt(sc.nextLine());
+            String str = sc.nextLine();
+            String[] strArr = str.split(" ");
+            System.out.println(number);
+            System.out.println(strArr);
+            // 解题思想
+            // 分别计算某一个位置左边最长递增子序列和右边最长递减子序列
+        }
+    }
+
 }

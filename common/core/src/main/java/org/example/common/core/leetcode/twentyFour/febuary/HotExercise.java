@@ -757,9 +757,17 @@ public class HotExercise {
     }
 
     @Test
-    public void main() {
-        final List<Integer> list = Arrays.asList(1, 2, 3, 3, 4);
-        System.out.println(binarySearch(list, 3));
+    public static void main(String[] args) {
+//        final List<Integer> list = Arrays.asList(1, 2, 3, 3, 4);
+//        System.out.println(binarySearch(list, 3));
+        final Scanner sc = new Scanner(System.in);
+        while (sc.hasNextLine()) {
+            String a = sc.nextLine();
+            String b = sc.nextLine();
+            final BigDecimal bigDecimalA = new BigDecimal(a);
+            final BigDecimal bigDecimalB = new BigDecimal(b);
+            System.out.println(bigDecimalA.add(bigDecimalB).longValue());
+        }
     }
 
     /**
@@ -1562,6 +1570,7 @@ public class HotExercise {
         if (flags[i] == -1) {
             return true;
         }
+        // 第一次使用是1.
         flags[i] = 1;
         for (Integer j : adjacency.get(i)) {
             if (!dfs(adjacency, flags, j)) {
@@ -1569,6 +1578,7 @@ public class HotExercise {
             }
             log.info("此时的边是：{}", flags);
         }
+        // 用完以后是一个-1的状态。
         flags[i] = -1;
         return true;
     }
@@ -2496,16 +2506,75 @@ public class HotExercise {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
 
-        Scanner sc = new Scanner(System.in);
-        while (sc.hasNextLine()) {
-            int number = Integer.parseInt(sc.nextLine());
-            String str = sc.nextLine();
-            String[] strArr = str.split(" ");
-            System.out.println(number);
-            System.out.println(strArr);
-            // 解题思想
-            // 分别计算某一个位置左边最长递增子序列和右边最长递减子序列
+    @Test
+    public void testLetter() {
+        String str = "A Famous Saying: Much Ado About Nothing (2012/8)";
+        List<Character> letters = new ArrayList<>();
+        for (char ch : str.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                letters.add(ch);
+            }
         }
+        // 将英文字母先排序好
+        letters.sort(new Comparator<Character>() {
+            @Override
+            public int compare(Character o1, Character o2) {
+                return Character.toLowerCase(o1) - Character.toLowerCase(o2);
+            }
+        });
+        System.out.println(letters);
+    }
+
+    public boolean judgePoint24(int[] nums) {
+        List<Double> list = new ArrayList<>(4);
+        for (int num : nums) {
+            list.add((double) num);
+        }
+        return solve(list);
+    }
+
+    /**
+     * 数与数之间的关系有如下几种：
+     * <p>
+     *     加、乘法；
+     *     减与被减、除与被除
+     * </p>
+     *
+     * @param nums
+     * @return
+     */
+    boolean solve(List<Double> nums){
+        if(nums.size() == 1) {
+            return Math.abs(nums.get(0) - 24) <= 0.00001;
+        }
+        for(int i = 0; i < nums.size(); i++){
+            for(int j = i + 1; j < nums.size(); j++){
+                List<Double> copy = new ArrayList<>(nums);
+                double b = copy.remove(j), a = copy.remove(i);
+                boolean valid = false;
+
+                copy.add(a + b);
+                valid |= solve(copy);
+                copy.set(copy.size() - 1, a - b);
+
+                valid |= solve(copy);
+                copy.set(copy.size() - 1, a * b);
+
+                valid |= solve(copy);
+                copy.set(copy.size() - 1, a / b);
+
+                valid |= solve(copy);
+                copy.set(copy.size() - 1, b - a);
+
+                valid |= solve(copy);
+                copy.set(copy.size() - 1, b / a);
+                valid |= solve(copy);
+                if(valid) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

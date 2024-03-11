@@ -1,6 +1,7 @@
 package org.example.common.core.leetcode.daily;
 
-import cn.hutool.socket.protocol.MsgDecoder;
+import org.example.common.core.leetcode.link.ListNode;
+import org.example.common.core.util.CommonUtil;
 import org.junit.Test;
 
 import java.util.*;
@@ -185,6 +186,68 @@ public class RangeModule {
     public void main() {
         String s = "AAAAHHHBBCDHHHH";
         final int[] ints = countSameWithLargest(s);
+    }
+
+    /**
+     * 全部删除的情况。
+     *
+     * @param head
+     * @return
+     */
+    public ListNode deleteDup(ListNode head) {
+        final ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        /**这里是从虚拟的节点开始。
+         * */
+        ListNode cur = dummy;
+        while (cur.next != null && cur.next.next != null) {
+            if (cur.next.val == cur.next.next.val) {
+                int val = cur.next.val;
+                while (cur.next != null && val == cur.next.val) {
+                    // 没有删除掉自己
+                    cur.next = cur.next.next;
+                }
+            } else {
+                cur = cur.next;
+            }
+        }
+        return dummy.next;
+    }
+
+    /**
+     * 保留一个重复的元素。
+     *
+     * @param head
+     * @return
+     */
+    public ListNode deleteRemainOne(ListNode head) {
+        final ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        /**
+         * 这里的是从真实节点开始的。
+         * */
+        ListNode cur = head;
+        while (cur != null) {
+            int val = cur.val;
+            while (cur.next != null && val == cur.next.val) {
+                cur.next = cur.next.next;
+                // 没有删除掉自己
+            }
+            cur = cur.next;
+        }
+
+
+        return dummy.next;
+    }
+
+    /**
+     * 这时要求有要是有多个（大于2个的时候，要求保留2个重复元素呢？）
+     */
+
+    @Test
+    public void testLink() {
+        final ListNode listNode = CommonUtil.buildLinkedList(new int[]{1, 1, 1, 2, 2, 3, 4, 5, 5});
+        System.out.println(deleteDup(listNode));
     }
 
     public class Interval {

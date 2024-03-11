@@ -149,6 +149,44 @@ public class RangeModule {
         return res;
     }
 
+    /**
+     * 对相同值的不同字符，记录最大的。<br/>
+     *
+     * <b>AAAAHHHBBCDHHHH</b>
+     * @param s
+     * @return
+     */
+    public int[] countSameWithLargest(String s) {
+        int[] res = new int[26];
+        final char[] chars = s.toCharArray();
+        Map<Character, LinkedList<Integer>> map = new HashMap<>();
+        char pre = ' ';
+        int start = 0;
+        while (start < s.length()) {
+            int count = 1;
+            int end = start + 1;
+            // 程序这里有问题，要是为len - 2 了；
+            pre = chars[start];
+            while (end <= s.length() - 1 && pre == chars[end]) {
+                end++;
+                count++;
+            }
+            // 从这里开始。
+            start = end;
+            final LinkedList<Integer> orDefault = map.getOrDefault(pre, new LinkedList<Integer>());
+            orDefault.add(count);
+            map.put(pre, orDefault);
+        }
+
+        return res;
+    }
+
+    @Test
+    public void main() {
+        String s = "AAAAHHHBBCDHHHH";
+        final int[] ints = countSameWithLargest(s);
+    }
+
     public class Interval {
       int start;
       int end;

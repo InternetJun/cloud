@@ -7,6 +7,7 @@ import org.example.common.core.leetcode.tree.TreeNode;
 import org.example.common.core.util.CommonUtil;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -756,7 +757,6 @@ public class HotExercise {
         }
     }
 
-    @Test
     public static void main(String[] args) {
 //        final List<Integer> list = Arrays.asList(1, 2, 3, 3, 4);
 //        System.out.println(binarySearch(list, 3));
@@ -2501,11 +2501,6 @@ public class HotExercise {
         return maxLength;
     }
 
-    // 最长的递增子串。
-
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-
     @Test
     public void testLetter() {
         String str = "A Famous Saying: Much Ado About Nothing (2012/8)";
@@ -2577,4 +2572,68 @@ public class HotExercise {
         return false;
     }
 
+    @Test
+    public void main() {
+//        int n = 10; // 示例输入
+        final List<Integer> list = Arrays.asList(2, 3, 5, 6, 18);
+        for (int i = 0; i < list.size(); i++) {
+            int n = list.get(i);
+            int nextNumber = nextNumberWithSameBits(n);
+            System.out.println("Next number with same number of set bits as " + n + " is: " + nextNumber);
+        }
+    }
+
+    private static int countOnes(int n) {
+        int count = 0;
+        while (n > 0) {
+            // n & 1 表示了什么？
+            log.info("n:{} and n&1:{}", n, n & 1);
+            count += n & 1;
+            n >>= 1;
+        }
+        return count;
+    }
+
+    // 找到比给定整数大的下一个具有相同位数的整数
+    public static int nextNumberWithSameBits(int n) {
+        // 计算 n 中 1 的个数
+        int onesCount = countOnes(n);
+        int nextNumber = n + 1;
+        while (countOnes(nextNumber) != onesCount) {
+            nextNumber++;
+        }
+        return nextNumber;
+    }
+
+    // 判断一个数是否为素数
+    public static boolean isPrimeS(int s) {
+        if (s <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(s); i++) {
+            if (s % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void testPrime() {
+//        Scanner scanner = new Scanner(System.in);
+        int num = 15;  // 输入的32位有符号整数
+        int a = -1, b = -1;
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (isPrimeS(i)) {            // 先判断第一个因子是否为素数
+                if (num % i == 0) {      // 判断能否除尽
+                    if (isPrimeS(num / i)) {
+                        a = i;
+                        b = num / i;
+                        break;  // 找到两个素数因子即可退出循环
+                    }
+                }
+            }
+        }
+        System.out.println(a + " " + b);
+    }
 }

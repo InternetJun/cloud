@@ -2605,4 +2605,35 @@ public class HotExercise {
         return nextNumber;
     }
 
+    // 判断一个数是否为素数
+    public static boolean isPrimeS(int s) {
+        if (s <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(s); i++) {
+            if (s % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void testPrime() {
+//        Scanner scanner = new Scanner(System.in);
+        int num = 15;  // 输入的32位有符号整数
+        int a = -1, b = -1;
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (isPrimeS(i)) {            // 先判断第一个因子是否为素数
+                if (num % i == 0) {      // 判断能否除尽
+                    if (isPrimeS(num / i)) {
+                        a = i;
+                        b = num / i;
+                        break;  // 找到两个素数因子即可退出循环
+                    }
+                }
+            }
+        }
+        System.out.println(a + " " + b);
+    }
 }

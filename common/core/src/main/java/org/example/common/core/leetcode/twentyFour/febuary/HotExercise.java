@@ -2636,4 +2636,25 @@ public class HotExercise {
         }
         System.out.println(a + " " + b);
     }
+
+    public String swapOneToMinDictionary(String s) {
+            char[] charArray = s.toCharArray();
+            char[] sortedArray = Arrays.copyOf(charArray, charArray.length);
+            // 会得到真正最小的字典序，但我们只要第一个不相同的交换就可以了。
+            Arrays.sort(sortedArray);
+            for (int i = 0; i < charArray.length; i++) {
+                if (charArray[i] != sortedArray[i]) {
+                    for (int j = charArray.length - 1; j >= 0; j--) {
+                        if (charArray[j] == sortedArray[i]) {
+                            char temp = charArray[i];
+                            charArray[i] = charArray[j];
+                            charArray[j] = temp;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            return new String(charArray);
+        }
 }

@@ -2,6 +2,7 @@ package org.example.common.core.leetcode.twentyFour.febuary;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.example.common.core.leetcode.link.ListNode;
 import org.example.common.core.leetcode.tree.TreeNode;
 import org.example.common.core.util.CommonUtil;
@@ -1885,20 +1886,20 @@ public class HotExercise {
         }
     }
 
-    public void recursion(ArrayList<String> res, char[] str, StringBuffer temp, boolean[] vis){
+    public void recursion(ArrayList<String> res, char[] str, StringBuffer temp, boolean[] vis) {
         //临时字符串满了加入输出
-        if(temp.length() == str.length){
+        if (temp.length() == str.length) {
             res.add(new String(temp));
             return;
         }
         //遍历所有元素选取一个加入
-        for(int i = 0; i < str.length; i++){
+        for (int i = 0; i < str.length; i++) {
             //如果该元素已经被加入了则不需要再加入了
-            if(vis[i]) {
+            if (vis[i]) {
                 continue;
             }
             //当前的元素str[i]与同一层的前一个元素str[i-1]相同且str[i-1]已经用过了
-            if(i > 0 && str[i - 1] == str[i] && !vis[i - 1]) {
+            if (i > 0 && str[i - 1] == str[i] && !vis[i - 1]) {
                 continue;
             }
             //标记为使用过
@@ -1914,7 +1915,7 @@ public class HotExercise {
 
     public ArrayList<String> PermutationSolution(String str) {
         ArrayList<String> res = new ArrayList<String>();
-        if(str == null || str.length() == 0) {
+        if (str == null || str.length() == 0) {
             return res;
         }
         //转字符数组
@@ -1933,7 +1934,7 @@ public class HotExercise {
     @Test
     public void testPer() {
         System.out.println(Permutation("aab"));
-        Integer[] left = {1,null,2};
+        Integer[] left = {1, null, 2};
         final List<Integer> ints = Arrays.asList(left);
         System.out.println(ints);
     }
@@ -2026,17 +2027,17 @@ public class HotExercise {
      * @param nums
      * @return
      */
-    public int rob (int[] nums) {
-        if(nums == null || nums.length == 0) {
+    public int rob(int[] nums) {
+        if (nums == null || nums.length == 0) {
             return 0;
         }
         // write code here
         int n = nums.length;
-        int[] dp = new int[n+1];
+        int[] dp = new int[n + 1];
         dp[0] = 0;
         dp[1] = nums[0];
-        for(int i = 2; i <= n; i++) {
-            dp[i] = Math.max(dp[i-1], dp[i-2] + nums[i-1]);
+        for (int i = 2; i <= n; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i - 1]);
         }
         return dp[n];
     }
@@ -2069,8 +2070,8 @@ public class HotExercise {
     }
 
     @Test
-    public void mainRob(){
-        int[] nums = {1,2,3,4};
+    public void mainRob() {
+        int[] nums = {1, 2, 3, 4};
         System.out.println(rob(nums));
         String str1 = "str";
         String str2 = "ing";
@@ -2088,31 +2089,31 @@ public class HotExercise {
 
     }
 
-            public int maxArea (int[] height) {
-                if(height == null || height.length < 2) {
-                    return 0;
-                }
-                // write code here
-                int leftMax = Integer.MIN_VALUE, rightMax = Integer.MIN_VALUE;
-                int left = 0, right = height.length - 1;
-                int maxArea = Integer.MIN_VALUE;
-                while(left < right) {
-                    leftMax = Math.max(leftMax, height[left]);
-                    rightMax = Math.max(rightMax, height[right]);
-                    if(rightMax > leftMax) {
-                        maxArea = Math.max(leftMax * (right - left), maxArea);
-                        left++;
-                    } else{
-                        maxArea = Math.max(rightMax * (right - left), maxArea);
-                        right--;
-                    }
-                }
-                return maxArea;
+    public int maxArea(int[] height) {
+        if (height == null || height.length < 2) {
+            return 0;
+        }
+        // write code here
+        int leftMax = Integer.MIN_VALUE, rightMax = Integer.MIN_VALUE;
+        int left = 0, right = height.length - 1;
+        int maxArea = Integer.MIN_VALUE;
+        while (left < right) {
+            leftMax = Math.max(leftMax, height[left]);
+            rightMax = Math.max(rightMax, height[right]);
+            if (rightMax > leftMax) {
+                maxArea = Math.max(leftMax * (right - left), maxArea);
+                left++;
+            } else {
+                maxArea = Math.max(rightMax * (right - left), maxArea);
+                right--;
             }
+        }
+        return maxArea;
+    }
 
     @Test
     public void mainArea() {
-        int[] height = {1,2};
+        int[] height = {1, 2};
         System.out.println(maxArea(height));
     }
 
@@ -2180,12 +2181,12 @@ public class HotExercise {
      * 完全二叉树的定义：若二叉树的深度为 h，除第 h 层外，其它各层的结点数都达到最大个数，
      * 第 h 层所有的叶子结点都连续集中在最左边，这就是完全二叉树。
      * <p>
-     *     层数和节点的关系是什么？
-     *     第1层  -->   2^(1-1)
-     *     第2层  -->   2^(2-1)
-     *     第3层  -->   2^(3-1)
-     *     第1层  -->   1
-     *     只有最后一层可以不满足要求。所以有。boolean isEnd
+     * 层数和节点的关系是什么？
+     * 第1层  -->   2^(1-1)
+     * 第2层  -->   2^(2-1)
+     * 第3层  -->   2^(3-1)
+     * 第1层  -->   1
+     * 只有最后一层可以不满足要求。所以有。boolean isEnd
      * </p>
      *
      * @return
@@ -2210,7 +2211,7 @@ public class HotExercise {
             // 叶子节点要是都在左侧，不能跳跃。
             if (height == level) {
                 final int index = list.lastIndexOf(null);
-                for (int i = index+1; i < list.size(); i++) {
+                for (int i = index + 1; i < list.size(); i++) {
                     if (list.get(i) != null) {
                         return false;
                     }
@@ -2240,7 +2241,7 @@ public class HotExercise {
         if (root == null) {
             return 0;
         }
-        return Math.max(treeHeight(root.left), treeHeight(root.right))+1;
+        return Math.max(treeHeight(root.left), treeHeight(root.right)) + 1;
     }
 
     @Test
@@ -2258,28 +2259,28 @@ public class HotExercise {
     //非完全二叉树，poll出一个null后，后面还有非null元素
 
     //层序遍历，需要加null进去判断（通常不用加null）
-    public boolean isCompleteTreeSolution (TreeNode root) {
+    public boolean isCompleteTreeSolution(TreeNode root) {
         // write code here
         //层序遍历，在队列里加null。完全二叉树当poll出null时，后面应该都是null
         //非完全二叉树，poll出一个null后，后面还有非null元素
 
         //层序遍历，需要加null进去判断（通常不用加null）
-        if(root == null) {
+        if (root == null) {
             return true;
         }
         LinkedList<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         boolean isLast = false;
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             TreeNode t = queue.poll();
             //如果是完全二叉树，t应该一直为null，直到结束：上述的测试用例中，要是是一个完全的话，会一直poll。到queue isempty。
             // 要不是完全的化。肯定会跳过这个判断，直达if（isLast）很棒的设计。
-            if(t == null){
+            if (t == null) {
                 isLast = true;
                 continue;
             }
             //非完全二叉树，出现null后又出现非null元素
-            if(isLast){
+            if (isLast) {
                 return false;
             }
             //加入的是t的左节点和右节点
@@ -2292,10 +2293,10 @@ public class HotExercise {
     /**
      * 最短路径的算法。要有值的更新处理。
      * <p>
-     *     1.确定最短的路径；
-     *     2.从开始到结尾的路径值更新；
-     *     3.计数值。
-     *     <b>用的是一个</b>
+     * 1.确定最短的路径；
+     * 2.从开始到结尾的路径值更新；
+     * 3.计数值。
+     * <b>用的是一个</b>
      * </p>
      *
      * @param n
@@ -2388,7 +2389,7 @@ public class HotExercise {
             int pre = road[0];
             int next = road[1];
             for (int j = 0; j < n; j++) {
-                if (next == n-1) {
+                if (next == n - 1) {
                     minCost = Math.min(cost, minCost);
                     break;
                 }
@@ -2419,16 +2420,16 @@ public class HotExercise {
 
     /**
      * 连续操作，+inf
-     *<p>
+     * <p>
      * dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
      * dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
-     *             = max(dp[i-1][k][1], dp[i-1][k][0] - prices[i])
-     *
+     * = max(dp[i-1][k][1], dp[i-1][k][0] - prices[i])
+     * <p>
      * 我们发现数组中的 k 已经不会改变了，也就是说不需要记录 k 这个状态了：
      * dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
      * dp[i][1] = max(dp[i-1][1], dp[i-1][0] - prices[i])
      *
-     *</p>
+     * </p>
      *
      * @param prices
      * @return
@@ -2443,9 +2444,9 @@ public class HotExercise {
                 dp[i][1] = -prices[i];
                 continue;
             }
-            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
             // 和前面的有关，一个连续的子数组内容。
-            dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0] - prices[i]);
+            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
         }
         return dp[n - 1][0];
     }
@@ -2461,8 +2462,8 @@ public class HotExercise {
                 continue;
             }
             // 说明的是什么？一个序列。
-            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
-            dp[i][1] = Math.max(dp[i-1][1], -prices[i]);
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+            dp[i][1] = Math.max(dp[i - 1][1], -prices[i]);
         }
         return dp[n - 1][0];
     }
@@ -2470,11 +2471,11 @@ public class HotExercise {
     // 最长的递增子序列。和productExceptSelf的左右子数组很像。
     public int[] longLis(int[] arr) {
         int[] left = new int[arr.length];
-        for(int i =1 ; i < arr.length ; i++){
+        for (int i = 1; i < arr.length; i++) {
             left[i] = 1;
-            for(int j = 1 ; j < i ;j++){
-                if(arr[j] < arr[i]){
-                    left[i] = Math.max(left[i],left[j]+1);
+            for (int j = 1; j < i; j++) {
+                if (arr[j] < arr[i]) {
+                    left[i] = Math.max(left[i], left[j] + 1);
                 }
             }
         }
@@ -2531,19 +2532,19 @@ public class HotExercise {
     /**
      * 数与数之间的关系有如下几种：
      * <p>
-     *     加、乘法；
-     *     减与被减、除与被除
+     * 加、乘法；
+     * 减与被减、除与被除
      * </p>
      *
      * @param nums
      * @return
      */
-    boolean solve(List<Double> nums){
-        if(nums.size() == 1) {
+    boolean solve(List<Double> nums) {
+        if (nums.size() == 1) {
             return Math.abs(nums.get(0) - 24) <= 0.00001;
         }
-        for(int i = 0; i < nums.size(); i++){
-            for(int j = i + 1; j < nums.size(); j++){
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = i + 1; j < nums.size(); j++) {
                 List<Double> copy = new ArrayList<>(nums);
                 double b = copy.remove(j), a = copy.remove(i);
                 boolean valid = false;
@@ -2564,7 +2565,7 @@ public class HotExercise {
                 valid |= solve(copy);
                 copy.set(copy.size() - 1, b / a);
                 valid |= solve(copy);
-                if(valid) {
+                if (valid) {
                     return true;
                 }
             }
@@ -2638,23 +2639,87 @@ public class HotExercise {
     }
 
     public String swapOneToMinDictionary(String s) {
-            char[] charArray = s.toCharArray();
-            char[] sortedArray = Arrays.copyOf(charArray, charArray.length);
-            // 会得到真正最小的字典序，但我们只要第一个不相同的交换就可以了。
-            Arrays.sort(sortedArray);
-            for (int i = 0; i < charArray.length; i++) {
-                if (charArray[i] != sortedArray[i]) {
-                    for (int j = charArray.length - 1; j >= 0; j--) {
-                        if (charArray[j] == sortedArray[i]) {
-                            char temp = charArray[i];
-                            charArray[i] = charArray[j];
-                            charArray[j] = temp;
-                            break;
-                        }
+        char[] charArray = s.toCharArray();
+        char[] sortedArray = Arrays.copyOf(charArray, charArray.length);
+        // 会得到真正最小的字典序，但我们只要第一个不相同的交换就可以了。
+        Arrays.sort(sortedArray);
+        for (int i = 0; i < charArray.length; i++) {
+            if (charArray[i] != sortedArray[i]) {
+                for (int j = charArray.length - 1; j >= 0; j--) {
+                    if (charArray[j] == sortedArray[i]) {
+                        char temp = charArray[i];
+                        charArray[i] = charArray[j];
+                        charArray[j] = temp;
+                        break;
                     }
-                    break;
+                }
+                break;
+            }
+        }
+        return new String(charArray);
+    }
+
+    /**
+     * 用map来存储。 用*来表示就可以了。 count > 1就收缩了。
+     * 1、 只包含1个字母(a~z, A~Z)，其余必须是数字；
+     * 2、 字母可以在子串中的任意位置；
+     *
+     * <p>
+     * 判断全数字、字母。
+     * </p>
+     *
+     * @param s
+     * @return
+     */
+    public int longestString(String s) {
+        // 特殊情况。*:char, #:数字
+        Map<String, Integer> map = new HashMap<>();
+        String res = "";
+        int left = 0, right = 0;
+        int maxLen = Integer.MIN_VALUE;
+        while (right < s.length()) {
+            char c = s.charAt(right);
+            if (Character.isLetter(c)) {
+                int orDefault = map.getOrDefault("*", 0);
+                map.put("*", ++orDefault);
+            } else {
+                int orDefault = map.getOrDefault("#", 0);
+                map.put("#", ++orDefault);
+            }
+            log.info("{}", map);
+            // 收缩的条件是什么?
+            while (map.get("*") != null && map.get("*") > 1) {
+                char d = s.charAt(left);
+                left++;
+                if (Character.isLetter(d)) {
+                    Integer count = map.get("*");
+                    count--;
+                    map.put("*", count);
+                    if (count == 1) {
+                        break;
+                    }
                 }
             }
-            return new String(charArray);
+            // 这里的写法会导致了结果遗漏掉。所以要改变写法。没有
+            if ((map.get("*") != null && map.get("*") == 1) &&
+                    (map.get("#") != null && map.get("#") > 1)) {
+                if (right - left >= maxLen) {
+                    log.info("L:{},R:{}", left, right);
+                    maxLen = right - left;
+                    res = s.substring(left, right+1);
+                    log.info("最大的字符为：{}", res);
+                }
+            }
+            right++;
         }
+        // 打印出来。
+        log.info("{}", res);
+        return res.length() == 0 ? -1 : res.length();
+    }
+
+    @Test
+    public void testMaxString() {
+        String s = "abC124ACb";
+        System.out.println(longestString(s));
+    }
 }

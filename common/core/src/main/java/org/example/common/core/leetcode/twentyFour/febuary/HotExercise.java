@@ -2722,4 +2722,40 @@ public class HotExercise {
         String s = "abC124ACb";
         System.out.println(longestString(s));
     }
+
+    @Test
+    public void testCost() {
+        int[] cost = {5, 14, 30, 100};
+        int[] day = {1, 3, 5, 20, 21, 200, 202, 230};
+//        minCost(cost, day);
+//        int[] playDates = {1, 10, 20, 30, 50, 80, 100, 150, 200}; // 游玩日期数组
+//        int[] ticketCosts = {2, 7, 25, 90}; // 每种票的价格数组
+
+        // 获取最小花费
+        int minCost = minCostPlay(day, cost);
+        System.out.println("最小花费为: " + minCost);
+    }
+
+    public static int minCostPlay(int[] arr_days, int[] arr_costs) {
+        int max_day = arr_days[arr_days.length - 1];
+        int[] dp_arr = new int[max_day + 1];
+        dp_arr[0] = 0;
+        int idx = 0;
+
+        for (int i = 1; i <= max_day; i++) {
+            if (i == arr_days[idx]) {
+                int b_1 = dp_arr[i - 1] + arr_costs[0];
+                int b_3 = (i >= 3) ? dp_arr[i - 3] + arr_costs[1] : arr_costs[1];
+                int b_7 = (i >= 7) ? dp_arr[i - 7] + arr_costs[2] : arr_costs[2];
+                int b_30 = (i >= 30) ? dp_arr[i - 30] + arr_costs[3] : arr_costs[3];
+                dp_arr[i] = Math.min(Math.min(b_1, b_3), Math.min(b_7, b_30));
+                idx++;
+            } else {
+                dp_arr[i] = dp_arr[i - 1];
+            }
+
+//        return dp[maxDay]; // 返回最后一天的最小花费
+        }
+        return dp_arr[max_day];
+    }
 }

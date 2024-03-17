@@ -1,5 +1,6 @@
 package org.example.common.core.leetcode.twentyFour.march;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.example.common.core.util.CommonUtil;
 import org.junit.Test;
@@ -178,6 +179,59 @@ public class Huawei0317 {
                     ", right=" + right +
                     '}';
         }
+    }
+
+    public int kthSmallest(int[][] matrix, int k) {
+        int n = matrix[0].length;
+        int left = matrix[0][0], right = matrix[n - 1][n-1];
+        // 获取到第k个数。怎么表示出来呢？第k个数是？？  n * x + 第几个元素的。
+
+        while(left < right) {
+            int mid = (left + right) / 2;
+            // 获取到行列的元素的。
+            if(check(matrix, mid, k, n)) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+
+    /**
+     * <p>
+     *     说明的是有：
+     * </p>
+     *
+     *
+     * @param matrix
+     * @param mid
+     * @param k
+     * @param n
+     * @return
+     */
+    private boolean check(int[][] matrix, int mid, int k, int n) {
+        int i = n - 1;
+        int j = 0;
+        int num = 0;
+        while (i >= 0 && j < n) {
+            // 表示了行都小于mid；
+            if (matrix[i][j] <= mid) {
+                // 这一行的元素有n个都要加上。
+                num += i + 1;
+                j++;
+            } else {
+                i--;
+            }
+        }
+        return num >= k;
+
+    }
+
+    @Test
+    public void testMatrix() {
+        final int[][] num = JSONObject.parseObject("[[-5]]", int[][].class);
+        System.out.println(kthSmallest(num, 1));
     }
 }
 

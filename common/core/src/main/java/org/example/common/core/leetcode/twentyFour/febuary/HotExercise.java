@@ -1913,6 +1913,62 @@ public class HotExercise {
         }
     }
 
+    @Test
+    public void testHour() {
+        System.out.println(result("23", "59"));
+    }
+
+    public static String result(String hour, String minute) {
+        Set<String> set = new HashSet<>();
+        for (char c : hour.toCharArray()) {
+            set.add(String.valueOf(c));
+        }
+        for (char c : minute.toCharArray()) {
+            set.add(String.valueOf(c));
+        }
+
+        List<String> arr = new ArrayList<>(set);
+        List<String> res = new ArrayList<>();
+        dfsHour(arr, new ArrayList<>(), res);
+
+        int index = res.indexOf(hour + minute);
+        String reTime;
+        // 表明什么情况???
+        if (index == res.size() - 1) {
+            reTime = res.get(0);
+        } else {
+            reTime = res.get(index + 1);
+        }
+
+        StringBuilder sb = new StringBuilder(reTime);
+        sb.insert(2, ':');
+        return new String(sb);
+    }
+
+    public static void dfsHour(List<String> arr, List<String> path, List<String> res) {
+        if (path.size() == 4) {
+            StringBuilder timeStr = new StringBuilder();
+            for (String s : path) {
+                timeStr.append(s);
+            }
+            if (isValidTime(timeStr.toString())) {
+                res.add(timeStr.toString());
+            }
+            return;
+        }
+
+        for (String s : arr) {
+            path.add(s);
+            dfsHour(arr, path, res);
+            path.remove(path.size() - 1);
+        }
+    }
+
+    public static boolean isValidTime(String timeStr) {
+        String regex = "(([01][0-9])|([2][0-3]))[0-5][0-9]";
+        return timeStr.matches(regex);
+    }
+
     public ArrayList<String> PermutationSolution(String str) {
         ArrayList<String> res = new ArrayList<String>();
         if (str == null || str.length() == 0) {

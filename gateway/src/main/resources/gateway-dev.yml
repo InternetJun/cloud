@@ -1,0 +1,7 @@
+server:
+  port: 9999
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/actuator/**"
+      - "/auth/oauth/token"
